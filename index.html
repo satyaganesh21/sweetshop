@@ -159,6 +159,15 @@
             .search-container { width: 100%; }
             .cart-drawer { width: 100%; right: -100%; }
         }
+        /* Smooth interaction animation for the search bar */
+.search-container {
+    transition: all 0.3s ease;
+}
+.search-container:focus-within {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 8px rgba(255, 107, 129, 0.2);
+    width: 340px; /* Expands slightly when typing! */
+}
     </style>
 </head>
 <body>
@@ -359,10 +368,12 @@ window.onload = () => {
     renderProducts();
 };
 
+// Upgraded Synchronized Search & Filter Engine
 function renderProducts() {
     const grid = document.getElementById('products-grid');
     grid.innerHTML = "";
 
+    // The Magic: This filters by BOTH category and search text at the exact same time
     const filteredProducts = sweetsData.filter(product => {
         const matchesCategory = (currentCategory === 'all' || product.category === currentCategory);
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -370,7 +381,11 @@ function renderProducts() {
     });
 
     if(filteredProducts.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #999;">No delicious sweets found matching your selection.</p>`;
+        grid.innerHTML = `
+            <div style="grid-column: 1/-1; text-align:center; padding: 40px;">
+                <i class="fas fa-cookie-bite" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
+                <p style="color: #999; font-size: 16px;">No delicious sweets found matching your selection.</p>
+            </div>`;
         return;
     }
 
@@ -398,18 +413,22 @@ function renderProducts() {
     });
 }
 
+// Smoothly changes categories and triggers the engine
 function filterCategory(category, event) {
     currentCategory = category;
+    
+    // Update active class styling on buttons
     document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
+    
     renderProducts();
 }
 
+// Captures keyboard input instantly and triggers the engine
 function handleSearch() {
     searchQuery = document.getElementById('search-input').value;
     renderProducts();
 }
-
 function toggleCart(open) {
     const drawer = document.getElementById('cart-drawer');
     if (open) drawer.classList.add('open');
