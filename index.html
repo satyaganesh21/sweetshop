@@ -159,15 +159,6 @@
             .search-container { width: 100%; }
             .cart-drawer { width: 100%; right: -100%; }
         }
-        /* Smooth interaction animation for the search bar */
-.search-container {
-    transition: all 0.3s ease;
-}
-.search-container:focus-within {
-    border-color: var(--primary-color);
-    box-shadow: 0 0 8px rgba(255, 107, 129, 0.2);
-    width: 340px; /* Expands slightly when typing! */
-}
     </style>
 </head>
 <body>
@@ -198,68 +189,7 @@
             <p>Order custom hampers, premium chocolates, and authentic heritage recipes.</p>
         </div>
     </section>
-<!-- FEATURE: Build Your Own Sweet Box Customizer Section -->
-<section style="max-width: 1200px; margin: 40px auto; padding: 0 20px;">
-    <h2 style="text-align: center; font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 10px;">Build Your Custom Treat Box</h2>
-    <p style="text-align: center; color: #666; margin-bottom: 25px;">Select a box capacity size and pack your favorite sweets together!</p>
-    
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; background: white; padding: 25px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.03);">
-        
-        <!-- Left Column: Selection Mechanics -->
-        <div>
-            <h4 style="margin-bottom: 12px; font-weight: 600;">1. Choose Box Size Capacity:</h4>
-            <div style="display: flex; gap: 15px; margin-bottom: 25px;">
-                <button onclick="setBoxCapacity(500, 19.99, this)" style="flex: 1; padding: 12px; border: 2px solid var(--primary-color); background: var(--primary-color); color: white; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;" id="size-500-btn">500g Box ($19.99)</button>
-                <button onclick="setBoxCapacity(1000, 34.99, this)" style="flex: 1; padding: 12px; border: 2px solid #ccc; background: transparent; color: #333; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;">1kg Box ($34.99)</button>
-            </div>
-            
-            <h4 style="margin-bottom: 12px; font-weight: 600;">2. Tap Sweets to Pack Box:</h4>
-            <div style="display: flex; flex-direction: column; gap: 10px; max-height: 280px; overflow-y: auto; padding-right: 5px;">
-                <!-- Sweet items will inject here dynamically via JS -->
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fdf2f4; border-radius: 8px; border: 1px dashed #ffccd5;">
-                    <span>✨ Premium Kaju Katli (50g)</span>
-                    <button onclick="packItemIntoBox('Kaju Katli', 50)" style="background: var(--primary-color); color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">+ Add</button>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fdf2f4; border-radius: 8px; border: 1px dashed #ffccd5;">
-                    <span>✨ Gulab Jamun Sweet (60g)</span>
-                    <button onclick="packItemIntoBox('Gulab Jamun', 60)" style="background: var(--primary-color); color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">+ Add</button>
-                </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; background: #fdf2f4; border-radius: 8px; border: 1px dashed #ffccd5;">
-                    <span>✨ Assorted Chocolates (40g)</span>
-                    <button onclick="packItemIntoBox('Assorted Chocolates', 40)" style="background: var(--primary-color); color: white; border: none; padding: 5px 12px; border-radius: 6px; cursor: pointer; font-weight: bold;">+ Add</button>
-                </div>
-            </div>
-        </div>
 
-        <!-- Right Column: Box Weight Visualization Monitor -->
-        <div style="background: var(--gray-light); padding: 20px; border-radius: 12px; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid #eee;">
-            <div>
-                <h4 style="margin-bottom: 15px; font-weight: 600; display: flex; justify-content: space-between;">
-                    <span>Your Custom Box Contents:</span>
-                    <span style="color: var(--primary-color);" id="box-weight-summary">0g / 500g</span>
-                </h4>
-                
-                <!-- Dynamic Progress Weight Bar -->
-                <div style="width: 100%; height: 12px; background: #e0e0e0; border-radius: 6px; overflow: hidden; margin-bottom: 20px;">
-                    <div id="box-progress-bar" style="width: 0%; height: 100%; background: linear-gradient(90px, var(--secondary-color), var(--primary-color)); transition: width 0.3s ease;"></div>
-                </div>
-
-                <div id="custom-box-items-list" style="font-size: 14px; color: #555; display: flex; flex-direction: column; gap: 6px; max-height: 160px; overflow-y: auto;">
-                    <p style="color: #999; text-align: center; padding-top: 20px;">Box is currently empty. Start packing!</p>
-                </div>
-            </div>
-
-            <div style="border-top: 1px dashed #ccc; padding-top: 15px; margin-top: 15px;">
-                <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 15px;">
-                    <span>Box Total Price:</span>
-                    <span id="box-price-display">$19.99</span>
-                </div>
-                <button id="add-custom-box-to-cart-btn" onclick="addCustomBoxToMainCart()" style="width: 100%; background: var(--success-color); color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s;" disabled>Fill Box to Add to Cart</button>
-            </div>
-        </div>
-
-    </div>
-</section>
     <!-- Main Content Menu -->
     <section>
         <h2 class="section-title">Explore Our Treats</h2>
@@ -420,19 +350,20 @@ const sweetsData = [
 let cart = [];
 let currentCategory = 'all';
 let searchQuery = '';
+
+// =========================================================================
 // CUSTOM HAMPERS BOX STATE SYSTEM
+// =========================================================================
 let boxMaxCapacity = 500; 
 let boxCurrentWeight = 0;
 let boxBasePrice = 19.99;
 let packedSweetsMap = {};
 
 function setBoxCapacity(grams, price, buttonElement) {
-    // Reset contents on box size switch to prevent overflow math errors
     boxMaxCapacity = grams;
     boxBasePrice = price;
     clearCustomBox();
     
-    // Toggle button style weights visual state
     buttonElement.parentElement.querySelectorAll('button').forEach(btn => {
         btn.style.background = "transparent";
         btn.style.color = "#333";
@@ -445,11 +376,10 @@ function setBoxCapacity(grams, price, buttonElement) {
 
 function packItemIntoBox(sweetName, itemWeightGrams) {
     if (boxCurrentWeight + itemWeightGrams > boxMaxCapacity) {
-        alert("⚠️ Slow down sweet tooth! Adding this item exceeds your selected box weight limit. Upgrade your box size or checkout this box!");
+        alert("⚠️ Slow down sweet tooth! Adding this item exceeds your selected box weight limit.");
         return;
     }
 
-    // Accumulate structural weight counts mapping state
     if (packedSweetsMap[sweetName]) {
         packedSweetsMap[sweetName].qty += 1;
         packedSweetsMap[sweetName].totalWeight += itemWeightGrams;
@@ -468,11 +398,11 @@ function updateCustomBoxUI() {
     const mainCartBtn = document.getElementById('add-custom-box-to-cart-btn');
     const priceDisplay = document.getElementById('box-price-display');
 
-    listContainer.innerHTML = "";
+    if (!listContainer || !weightSummary || !progressBar || !mainCartBtn || !priceDisplay) return;
+
     weightSummary.innerText = `${boxCurrentWeight}g / ${boxMaxCapacity}g`;
     priceDisplay.innerText = `$${boxBasePrice.toFixed(2)}`;
 
-    // Calculate structural visual percentage representation filled state
     const percentageFilled = (boxCurrentWeight / boxMaxCapacity) * 100;
     progressBar.style.width = `${percentageFilled}%`;
 
@@ -480,20 +410,21 @@ function updateCustomBoxUI() {
     if(keys.length === 0) {
         listContainer.innerHTML = `<p style="color: #999; text-align: center; padding-top: 20px;">Box is currently empty. Start packing!</p>`;
         mainCartBtn.disabled = true;
+        mainCartBtn.style.background = "#bdc3c7";
         mainCartBtn.innerText = "Fill Box to Add to Cart";
         return;
     }
 
+    listContainer.innerHTML = "";
     keys.forEach(name => {
         const item = packedSweetsMap[name];
         const row = document.createElement('div');
-        row.style = "display: flex; justify-content: space-between; background: #fff; padding: 6px 10px; border-radius: 6px; border: 1px solid #eee; font-size: 13px;";
+        row.style = "display: flex; justify-content: space-between; background: #fff; padding: 6px 10px; border-radius: 6px; border: 1px solid #eee; font-size: 13px; margin-bottom: 5px;";
         row.innerHTML = `<span>📦 <b>${name}</b> (x${item.qty})</span> <span>${item.totalWeight}g</span>`;
         listContainer.appendChild(row);
     });
 
-    // Guard threshold state requirement to unlock cart addition
-    if (boxCurrentWeight >= boxMaxCapacity - 30) { // Allows a tiny 30g grace gap close to fullness
+    if (boxCurrentWeight >= boxMaxCapacity - 30) { 
         mainCartBtn.disabled = false;
         mainCartBtn.style.background = "var(--success-color)";
         mainCartBtn.innerText = "Add Custom Box to My Order Drawer! 🎉";
@@ -505,21 +436,19 @@ function updateCustomBoxUI() {
 }
 
 function addCustomBoxToMainCart() {
-    // Construct a singular customized item metadata pack configuration to bridge main cart state
     const customBoxItemObject = {
-        id: Date.now(), // Generate unique signature token ID
+        id: Date.now(), 
         name: `Custom Designed ${boxMaxCapacity}g Hamper Box Assortment`,
         price: boxBasePrice,
         quantity: 1,
         img: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=100&q=80",
-        stock: 99 // Artificially infinite configuration
+        stock: 99 
     };
 
-    // Push into the primary active global order array array structure 
     cart.push(customBoxItemObject);
     updateCartUI();
     clearCustomBox();
-    toggleCart(true); // Pop side panel drawer out smoothly
+    toggleCart(true); 
 }
 
 function clearCustomBox() {
@@ -529,19 +458,18 @@ function clearCustomBox() {
 }
 
 // FEATURE STATE: Tracking active modifiers
-let activeDiscountRate = 0; // e.g., 0.20 for 20%
+let activeDiscountRate = 0; 
 let isFreeShipping = false;
 
 window.onload = () => {
     renderProducts();
 };
 
-// Upgraded Synchronized Search & Filter Engine
 function renderProducts() {
     const grid = document.getElementById('products-grid');
+    if (!grid) return;
     grid.innerHTML = "";
 
-    // The Magic: This filters by BOTH category and search text at the exact same time
     const filteredProducts = sweetsData.filter(product => {
         const matchesCategory = (currentCategory === 'all' || product.category === currentCategory);
         const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
@@ -549,11 +477,7 @@ function renderProducts() {
     });
 
     if(filteredProducts.length === 0) {
-        grid.innerHTML = `
-            <div style="grid-column: 1/-1; text-align:center; padding: 40px;">
-                <i class="fas fa-cookie-bite" style="font-size: 48px; color: #ccc; margin-bottom: 15px;"></i>
-                <p style="color: #999; font-size: 16px;">No delicious sweets found matching your selection.</p>
-            </div>`;
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #999;">No delicious sweets found matching your selection.</p>`;
         return;
     }
 
@@ -581,22 +505,18 @@ function renderProducts() {
     });
 }
 
-// Smoothly changes categories and triggers the engine
 function filterCategory(category, event) {
     currentCategory = category;
-    
-    // Update active class styling on buttons
     document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
     event.target.classList.add('active');
-    
     renderProducts();
 }
 
-// Captures keyboard input instantly and triggers the engine
 function handleSearch() {
     searchQuery = document.getElementById('search-input').value;
     renderProducts();
 }
+
 function toggleCart(open) {
     const drawer = document.getElementById('cart-drawer');
     if (open) drawer.classList.add('open');
@@ -628,7 +548,7 @@ function changeQuantity(productId, change) {
     const item = cart.find(item => item.id === productId);
     
     if (item) {
-        if (change > 0 && item.quantity >= product.stock) {
+        if (change > 0 && product && item.quantity >= product.stock) {
             alert("Cannot add more. Maximum limit reached for this item.");
             return;
         }
@@ -658,6 +578,7 @@ function updateCartUI() {
     const countBadge = document.getElementById('cart-count');
     const subtotalText = document.getElementById('cart-subtotal');
     
+    if (!container || !countBadge || !subtotalText) return;
     container.innerHTML = "";
     let totalCount = 0;
     let subtotal = 0;
@@ -667,7 +588,8 @@ function updateCartUI() {
         subtotal += item.price * item.quantity;
         
         const product = sweetsData.find(p => p.id === item.id);
-        const reachMaxStock = item.quantity >= product.stock;
+        // Fallback check: customized boxes don't use inventory stock validation limits
+        const reachMaxStock = product ? (item.quantity >= product.stock) : false;
 
         const itemRow = document.createElement('div');
         itemRow.className = 'cart-item';
@@ -725,7 +647,7 @@ function recalculateCheckoutTotals() {
     if (activeDiscountRate > 0) {
         document.getElementById('discount-label').innerText = `${activeDiscountRate * 100}%`;
         document.getElementById('modal-discount').innerText = `-$${discountAmount.toFixed(2)}`;
-        discountRow.style.display = 'flex'; // Fixed the double .style bug here!
+        discountRow.style.display = 'flex'; 
     } else {
         discountRow.style.display = 'none';
     }
@@ -733,47 +655,10 @@ function recalculateCheckoutTotals() {
     document.getElementById('modal-grand-total').innerText = `$${grandTotal.toFixed(2)}`;
 }
 
-function submitOrder(event) {
-    event.preventDefault();
-    
-    // final validation loop to guard stock verification status
-    let stockError = false;
-    cart.forEach(item => {
-        const product = sweetsData.find(p => p.id === item.id);
-        if (product && item.quantity > product.stock) {
-            stockError = true;
-            alert(`Oops! Demand is high and ${item.name} just ran out of adequate stock.`);
-        }
-    });
-
-    if (stockError) {
-        updateCartUI();
-        renderProducts();
-        return;
-    }
-
-    cart.forEach(item => {
-        const product = sweetsData.find(p => p.id === item.id);
-        if(product) {
-            product.stock -= item.quantity;
-        }
-    });
-
-    // --- TRACKER INTEGRATION HERE ---
-    closeCheckout(); // 1. Close the input form modal
-    launchLiveOrderTracker(); // 2. Smoothly pop open the live tracker status screen!
-    
-    // 3. Clear state clean for the next trip
-    cart = [];
-    activeDiscountRate = 0;
-    isFreeShipping = false;
-    updateCartUI();
-    renderProducts();
-    document.getElementById('order-form').reset();
-}
 function applyPromoCode() {
     const codeInput = document.getElementById('promo-code-input').value.trim().toUpperCase();
     const statusText = document.getElementById('promo-status');
+    if (!statusText) return;
     
     statusText.style.display = "block";
     
@@ -808,7 +693,6 @@ function closeCheckout() {
 function submitOrder(event) {
     event.preventDefault();
     
-    // final validation loop to guard stock verification status
     let stockError = false;
     cart.forEach(item => {
         const product = sweetsData.find(p => p.id === item.id);
@@ -831,38 +715,34 @@ function submitOrder(event) {
         }
     });
 
-    alert("✨ Success! Your order has been placed. Prepare your sweet tooth!");
+    closeCheckout(); 
+    launchLiveOrderTracker(); 
+    
     cart = [];
     activeDiscountRate = 0;
     isFreeShipping = false;
     updateCartUI();
     renderProducts();
-    closeCheckout();
     document.getElementById('order-form').reset();
 }
-// Function to launch and simulate the live order tracking flow
+
 function launchLiveOrderTracker() {
-    // 1. Generate a random dynamic order ID number
     const randomOrderId = Math.floor(100000 + Math.random() * 900000);
     document.getElementById('trackerOrderId').innerText = '#SB-' + randomOrderId;
     
-    // 2. Reset styles to initial state (Step 1 active)
     document.getElementById('orderTrackerModal').style.display = 'flex';
     resetTrackerUI();
 
-    // 3. Stage 2: Move status to "Preparing Your Sweets" after 4 seconds
     setTimeout(() => {
         updateTrackerStep(2, '#ff477e', '✓', 'Preparing...', 'Chef is packing your premium sweets freshly!');
     }, 4000);
 
-    // 4. Stage 3: Move status to "Out for Delivery" after 8 seconds
     setTimeout(() => {
         updateTrackerStep(3, '#ff477e', '✓', 'Dispatched', 'Out for delivery! Your driver is heading your way.');
         document.getElementById('trackerLine').style.background = '#ff477e';
     }, 8000);
 }
 
-// Helper utility functions to manage state styling updates
 function updateTrackerStep(stepNum, activeColor, symbol, titleText, messageText) {
     const circle = document.getElementById('stepCircle' + stepNum);
     const label = document.getElementById('stepText' + stepNum);
