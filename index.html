@@ -265,6 +265,45 @@
             </form>
         </div>
     </div>
+    <!-- Live Order Tracker Modal Container -->
+<div id="orderTrackerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;">
+    <div style="background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-family: sans-serif;">
+        
+        <h2 style="color: #ff477e; margin-bottom: 5px;">SugarBliss Order Tracking</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Order ID: <span id="trackerOrderId" style="font-weight: bold;">#SB-0000</span></p>
+        
+        <!-- Progress Steps Layout -->
+        <div style="display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; padding: 0 10px;">
+            <!-- Connector Line Background -->
+            <div id="trackerLine" style="position: absolute; top: 15px; left: 10%; width: 80%; height: 4px; background: #e0e0e0; z-index: 1; transition: background 0.5s;"></div>
+            
+            <!-- Step 1 -->
+            <div style="z-index: 2; text-align: center; width: 60px;">
+                <div id="stepCircle1" style="width: 34px; height: 34px; border-radius: 50%; background: #ff477e; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">✓</div>
+                <span style="font-size: 12px; font-weight: bold; color: #333;">Confirmed</span>
+            </div>
+            
+            <!-- Step 2 -->
+            <div style="z-index: 2; text-align: center; width: 60px;">
+                <div id="stepCircle2" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">2</div>
+                <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText2">Preparing</span>
+            </div>
+            
+            <!-- Step 3 -->
+            <div style="z-index: 2; text-align: center; width: 60px;">
+                <div id="stepCircle3" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">3</div>
+                <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText3">Dispatched</span>
+            </div>
+        </div>
+        
+        <!-- Live Status Updates Box -->
+        <div style="background: #fff0f3; padding: 15px; border-radius: 10px; border: 1px solid #ffccd5; margin-bottom: 20px;">
+            <p id="trackerStatusMessage" style="margin: 0; font-size: 15px; color: #c9184a; font-weight: bold;">We have received your order! Preparing soon...</p>
+        </div>
+        
+        <button onclick="closeTrackerModal()" style="background: #666; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Close Window</button>
+    </div>
+</div>
 
     <!-- Footer Section -->
     <footer>
@@ -499,7 +538,7 @@ function recalculateCheckoutTotals() {
     if (activeDiscountRate > 0) {
         document.getElementById('discount-label').innerText = `${activeDiscountRate * 100}%`;
         document.getElementById('modal-discount').innerText = `-$${discountAmount.toFixed(2)}`;
-        discountRow.style.style.display = 'flex';
+        discountRow.style.display = 'flex'; // Fixed the double .style bug here!
     } else {
         discountRow.style.display = 'none';
     }
@@ -507,6 +546,44 @@ function recalculateCheckoutTotals() {
     document.getElementById('modal-grand-total').innerText = `$${grandTotal.toFixed(2)}`;
 }
 
+function submitOrder(event) {
+    event.preventDefault();
+    
+    // final validation loop to guard stock verification status
+    let stockError = false;
+    cart.forEach(item => {
+        const product = sweetsData.find(p => p.id === item.id);
+        if (product && item.quantity > product.stock) {
+            stockError = true;
+            alert(`Oops! Demand is high and ${item.name} just ran out of adequate stock.`);
+        }
+    });
+
+    if (stockError) {
+        updateCartUI();
+        renderProducts();
+        return;
+    }
+
+    cart.forEach(item => {
+        const product = sweetsData.find(p => p.id === item.id);
+        if(product) {
+            product.stock -= item.quantity;
+        }
+    });
+
+    // --- TRACKER INTEGRATION HERE ---
+    closeCheckout(); // 1. Close the input form modal
+    launchLiveOrderTracker(); // 2. Smoothly pop open the live tracker status screen!
+    
+    // 3. Clear state clean for the next trip
+    cart = [];
+    activeDiscountRate = 0;
+    isFreeShipping = false;
+    updateCartUI();
+    renderProducts();
+    document.getElementById('order-form').reset();
+}
 function applyPromoCode() {
     const codeInput = document.getElementById('promo-code-input').value.trim().toUpperCase();
     const statusText = document.getElementById('promo-status');
@@ -575,6 +652,54 @@ function submitOrder(event) {
     renderProducts();
     closeCheckout();
     document.getElementById('order-form').reset();
+}
+// Function to launch and simulate the live order tracking flow
+function launchLiveOrderTracker() {
+    // 1. Generate a random dynamic order ID number
+    const randomOrderId = Math.floor(100000 + Math.random() * 900000);
+    document.getElementById('trackerOrderId').innerText = '#SB-' + randomOrderId;
+    
+    // 2. Reset styles to initial state (Step 1 active)
+    document.getElementById('orderTrackerModal').style.display = 'flex';
+    resetTrackerUI();
+
+    // 3. Stage 2: Move status to "Preparing Your Sweets" after 4 seconds
+    setTimeout(() => {
+        updateTrackerStep(2, '#ff477e', '✓', 'Preparing...', 'Chef is packing your premium sweets freshly!');
+    }, 4000);
+
+    // 4. Stage 3: Move status to "Out for Delivery" after 8 seconds
+    setTimeout(() => {
+        updateTrackerStep(3, '#ff477e', '✓', 'Dispatched', 'Out for delivery! Your driver is heading your way.');
+        document.getElementById('trackerLine').style.background = '#ff477e';
+    }, 8000);
+}
+
+// Helper utility functions to manage state styling updates
+function updateTrackerStep(stepNum, activeColor, symbol, titleText, messageText) {
+    const circle = document.getElementById('stepCircle' + stepNum);
+    const label = document.getElementById('stepText' + stepNum);
+    const msgBox = document.getElementById('trackerStatusMessage');
+    
+    if(circle && label) {
+        circle.style.background = activeColor;
+        circle.style.color = 'white';
+        circle.innerHTML = symbol;
+        label.style.color = '#333';
+        msgBox.innerText = messageText;
+    }
+}
+
+function resetTrackerUI() {
+    document.getElementById('trackerLine').style.background = '#e0e0e0';
+    updateTrackerStep(2, '#e0e0e0', '2', 'Preparing', 'We have received your order! Preparing soon...');
+    updateTrackerStep(3, '#e0e0e0', '3', 'Dispatched', 'We have received your order! Preparing soon...');
+    document.getElementById('stepText2').style.color = '#666';
+    document.getElementById('stepText3').style.color = '#666';
+}
+
+function closeTrackerModal() {
+    document.getElementById('orderTrackerModal').style.display = 'none';
 }
 </script>
 </body>
