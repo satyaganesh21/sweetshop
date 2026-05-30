@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SugarBliss - Premium Full-Featured Sweet Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- Core Theme Styles --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        :root {
+            --primary-color: #ff6b81;
+            --secondary-color: #f7b731;
+            --dark-color: #2c3e50;
+            --light-bg: #fff5f6;
+            --white: #ffffff;
+            --gray-light: #f8f9fa;
+            --success-color: #2ed573;
+        }
+        body { background-color: #fff9fa; color: var(--dark-color); overflow-x: hidden; }
+
+        /* --- Header & Search Bar --- */
+        header {
+            background-color: var(--white);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky; top: 0; z-index: 999;
+        }
+        .navbar {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: 1200px; margin: 0 auto; padding: 15px 20px;
+        }
+        .logo {
+            font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700;
+            color: var(--primary-color); text-decoration: none;
+        }
+        .logo span { color: var(--secondary-color); }
+        
+        .search-container {
+            display: flex; align-items: center; background: var(--gray-light);
+            border-radius: 20px; padding: 6px 15px; border: 1px solid #eee; width: 300px;
+        }
+        .search-container input {
+            border: none; background: transparent; outline: none; width: 100%; padding-left: 8px;
+        }
+        .nav-icons { display: flex; gap: 20px; font-size: 22px; cursor: pointer; }
+        .cart-icon-wrapper { position: relative; }
+        .cart-count {
+            position: absolute; top: -8px; right: -8px; background-color: var(--primary-color);
+            color: white; font-size: 11px; padding: 2px 6px; border-radius: 50%; font-weight: bold;
+        }
+
+        /* --- Hero Section --- */
+        .hero {
+            background: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), url('https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=1200&q=80');
+            background-size: cover; background-position: center; height: 50vh;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 45px; margin-bottom: 15px; }
+
+        /* --- Filter Categories --- */
+        .section-title { text-align: center; margin: 40px 0 25px; font-family: 'Playfair Display', serif; font-size: 32px; }
+        .categories { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
+        .cat-btn {
+            padding: 8px 22px; border: 2px solid var(--primary-color); background: transparent;
+            color: var(--primary-color); border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.3s;
+        }
+        .cat-btn.active, .cat-btn:hover { background-color: var(--primary-color); color: var(--white); }
+
+        /* --- Products Grid --- */
+        .products-container {
+            max-width: 1200px; margin: 0 auto; padding: 0 20px 60px;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+        }
+        .product-card {
+            background-color: var(--white); border-radius: 15px; overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.04); display: flex; flex-direction: column; transition: transform 0.3s;
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-img { width: 100%; height: 200px; object-fit: cover; }
+        .product-info { padding: 20px; text-align: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
+        .product-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+        .product-stock { font-size: 12px; color: #7f8c8d; margin-bottom: 10px; }
+        .product-price { font-size: 20px; color: var(--primary-color); font-weight: 700; margin-bottom: 15px; }
+        
+        .add-to-cart {
+            background-color: var(--secondary-color); color: var(--dark-color); border: none;
+            padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;
+        }
+        .add-to-cart:hover { background-color: #e1a624; }
+        .add-to-cart:disabled { background-color: #bdc3c7; color: #7f8c8d; cursor: not-allowed; }
+
+        /* --- Sliding Cart Drawer --- */
+        .cart-drawer {
+            position: fixed; top: 0; right: -400px; width: 400px; height: 100%;
+            background-color: var(--white); box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 1000; transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column;
+        }
+        .cart-drawer.open { right: 0; }
+        .cart-header { padding: 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .close-cart { font-size: 24px; cursor: pointer; color: #999; }
+        .cart-items-list { padding: 20px; flex-grow: 1; overflow-y: auto; }
+        
+        /* Cart Item Design */
+        .cart-item { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #f5f5f5; }
+        .cart-item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
+        .cart-item-details { flex-grow: 1; }
+        .cart-item-details h4 { font-size: 14px; margin-bottom: 4px; }
+        .cart-item-qty { display: flex; align-items: center; gap: 10px; margin-top: 5px; }
+        .qty-btn { background: #eee; border: none; width: 22px; height: 22px; border-radius: 4px; cursor: pointer; }
+        .qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+        .remove-item { color: #ff4757; cursor: pointer; font-size: 14px; margin-left: 10px; }
+        
+        .cart-footer { padding: 20px; border-top: 1px solid #eee; background: var(--gray-light); }
+        .cart-total-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
+        .checkout-btn { width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 25px; font-weight: bold; cursor: pointer; }
+
+        /* --- Checkout Modal --- */
+        .modal-overlay {
+            position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);
+            display: none; justify-content: center; align-items: center; z-index: 1001;
+        }
+        .modal { background: white; padding: 25px; border-radius: 15px; max-width: 460px; width: 90%; position: relative; max-height: 90vh; overflow-y: auto; }
+        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 22px; cursor: pointer; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; outline: none;}
+        .form-group input:focus { border-color: var(--primary-color); }
+        
+        /* FEATURE: Promo Code UI Elements */
+        .promo-input-group { display: flex; gap: 8px; margin-bottom: 12px; }
+        .promo-input-group input { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; text-transform: uppercase; }
+        .promo-btn { background: var(--dark-color); color: white; border: none; padding: 0 15px; border-radius: 6px; font-weight: 600; cursor: pointer; }
+        .promo-message { font-size: 12px; margin-top: 4px; display: none; }
+        
+        .summary-box { background: #fdf2f4; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 14px; }
+        .summary-box div { display: flex; justify-content: space-between; margin-bottom: 5px; }
+
+        /* --- Footer Styles --- */
+        footer {
+            background-color: var(--dark-color);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .footer-content h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 10px; color: var(--secondary-color); }
+        .footer-content p { margin-bottom: 10px; font-size: 14px; color: #bbb; }
+        .social-icons { margin: 20px 0; }
+        .social-icons a { color: var(--white); margin: 0 12px; font-size: 20px; transition: color 0.3s; text-decoration: none; }
+        .social-icons a:hover { color: var(--primary-color); }
+
+        /* --- Responsive View --- */
+        @media (max-width: 600px) {
+            .navbar { flex-direction: column; gap: 15px; }
+            .search-container { width: 100%; }
+            .cart-drawer { width: 100%; right: -100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <header>
+        <nav class="navbar">
+            <a href="#" class="logo">Sugar<span>Bliss</span></a>
+            
+            <div class="search-container">
+                <i class="fas fa-search" style="color: #aaa;"></i>
+                <input type="text" id="search-input" placeholder="Search for sweets..." oninput="handleSearch()">
+            </div>
+
+            <div class="nav-icons">
+                <div class="cart-icon-wrapper" onclick="toggleCart(true)">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Banner -->
+    <section class="hero">
+        <div>
+            <h1>The Sweetest Store in Town</h1>
+            <p>Order custom hampers, premium chocolates, and authentic heritage recipes.</p>
+        </div>
+    </section>
+
+    <!-- Main Content Menu -->
+    <section>
+        <h2 class="section-title">Explore Our Treats</h2>
+        
+        <div class="categories">
+            <button class="cat-btn active" onclick="filterCategory('all', event)">All Sweets</button>
+            <button class="cat-btn" onclick="filterCategory('traditional', event)">Traditional Treats</button>
+            <button class="cat-btn" onclick="filterCategory('chocolates', event)">Chocolates</button>
+            <button class="cat-btn" onclick="filterCategory('baked', event)">Baked Delights</button>
+        </div>
+
+        <div class="products-container" id="products-grid"></div>
+    </section>
+
+    <!-- Sliding Cart Drawer -->
+    <div class="cart-drawer" id="cart-drawer">
+        <div class="cart-header">
+            <h3>Your Sweet Box</h3>
+            <i class="fas fa-times close-cart" onclick="toggleCart(false)"></i>
+        </div>
+        <div class="cart-items-list" id="cart-items-container"></div>
+        <div class="cart-footer">
+            <div class="cart-total-row">
+                <span>Subtotal:</span>
+                <span id="cart-subtotal">$0.00</span>
+            </div>
+            <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <!-- Order Checkout Modal Window with Active Promo Form -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal">
+            <i class="fas fa-times close-modal" onclick="closeCheckout()"></i>
+            <h3>Complete Your Order</h3>
+            
+            <div class="summary-box">
+                <div><span>Items Subtotal:</span> <span id="modal-subtotal">$0.00</span></div>
+                <div id="discount-row" style="display:none; color: var(--success-color);">
+                    <span>Discount (<span id="discount-label">0%</span>):</span> 
+                    <span id="modal-discount">-$0.00</span>
+                </div>
+                <div><span>Estimated Delivery:</span> <span id="modal-delivery">$3.50</span></div>
+                <div style="font-weight:bold; border-top:1px dashed #ccc; padding-top:5px; margin-top:5px;">
+                    <span>Grand Total:</span> <span id="modal-grand-total">$0.00</span>
+                </div>
+            </div>
+
+            <!-- FEATURE FORM SECTION: Promo Input -->
+            <div class="form-group" style="margin-bottom: 20px;">
+                <label>Have a Sweet Promo Code?</label>
+                <div class="promo-input-group">
+                    <input type="text" id="promo-code-input" placeholder="e.g. SWEET20">
+                    <button type="button" class="promo-btn" onclick="applyPromoCode()">Apply</button>
+                </div>
+                <p id="promo-status" class="promo-message"></p>
+            </div>
+
+            <form id="order-form" onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Delivery Address</label>
+                    <input type="text" required placeholder="123 Sweet St, Candy City">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" required placeholder="(555) 123-4567">
+                </div>
+                <button type="submit" class="checkout-btn" style="background: var(--secondary-color); color: var(--dark-color)">Place Sweet Order</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <h3>SugarBliss Confectionery</h3>
+            <p>123 Sweet Tooth Lane, Dessert City</p>
+            <p>Email: support@sugarbliss.com | Phone: +1 (555) 019-2834</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p style="margin-top: 20px; font-size: 12px; color: #888;">&copy; 2026 SugarBliss. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Application Script Logic -->
+    <script>
+// Database
+const sweetsData = [
+    { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+    { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+    { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+    { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+    { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+    { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
+    { id: 7, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+    { id: 8, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+    { id: 9, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+    { id: 10, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+    { id: 11, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+    { id: 12, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
+    { id: 13, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+    { id: 14, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+    { id: 15, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+    { id: 16, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+    { id: 17, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+    { id: 18, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" }
+
+
+];
+
+// Application State Management
+let cart = [];
+let currentCategory = 'all';
+let searchQuery = '';
+
+// FEATURE STATE: Tracking active modifiers
+let activeDiscountRate = 0; // e.g., 0.20 for 20%
+let isFreeShipping = false;
+
+window.onload = () => {
+    renderProducts();
+};
+
+function renderProducts() {
+    const grid = document.getElementById('products-grid');
+    grid.innerHTML = "";
+
+    const filteredProducts = sweetsData.filter(product => {
+        const matchesCategory = (currentCategory === 'all' || product.category === currentCategory);
+        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+        return matchesCategory && matchesSearch;
+    });
+
+    if(filteredProducts.length === 0) {
+        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #999;">No delicious sweets found matching your selection.</p>`;
+        return;
+    }
+
+    filteredProducts.forEach(sweet => {
+        const cartItem = cart.find(item => item.id === sweet.id);
+        const currentCartQty = cartItem ? cartItem.quantity : 0;
+        const availableStock = sweet.stock - currentCartQty;
+        
+        const isOutOfStock = availableStock <= 0;
+        const buttonText = isOutOfStock ? "Out of Stock" : "Add to Cart";
+        const stockText = sweet.stock === 0 ? "Unavailable" : `Stock: ${availableStock} left`;
+
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML = `
+            <img src="${sweet.img}" alt="${sweet.name}" class="product-img">
+            <div class="product-info">
+                <h3 class="product-title">${sweet.name}</h3>
+                <p class="product-stock">${stockText}</p>
+                <p class="product-price">$${sweet.price.toFixed(2)}</p>
+                <button class="add-to-cart" ${isOutOfStock ? 'disabled' : ''} onclick="addToCart(${sweet.id})">${buttonText}</button>
+            </div>
+        `;
+        grid.appendChild(card);
+    });
+}
+
+function filterCategory(category, event) {
+    currentCategory = category;
+    document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    renderProducts();
+}
+
+function handleSearch() {
+    searchQuery = document.getElementById('search-input').value;
+    renderProducts();
+}
+
+function toggleCart(open) {
+    const drawer = document.getElementById('cart-drawer');
+    if (open) drawer.classList.add('open');
+    else drawer.classList.remove('open');
+}
+
+function addToCart(productId) {
+    const product = sweetsData.find(p => p.id === productId);
+    const existingItem = cart.find(item => item.id === productId);
+    const currentQty = existingItem ? existingItem.quantity : 0;
+    
+    if (currentQty >= product.stock) {
+        alert("Sorry, no more stock available for this sweet item!");
+        return;
+    }
+
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ ...product, quantity: 1 });
+    }
+    updateCartUI();
+    renderProducts();
+    toggleCart(true);
+}
+
+function changeQuantity(productId, change) {
+    const product = sweetsData.find(p => p.id === productId);
+    const item = cart.find(item => item.id === productId);
+    
+    if (item) {
+        if (change > 0 && item.quantity >= product.stock) {
+            alert("Cannot add more. Maximum limit reached for this item.");
+            return;
+        }
+        
+        item.quantity += change;
+        if (item.quantity <= 0) {
+            cart = cart.filter(i => i.id !== productId);
+        }
+        updateCartUI();
+        renderProducts();
+        if(document.getElementById('checkout-modal').style.display === 'flex') {
+            recalculateCheckoutTotals(); 
+        }
+    }
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartUI();
+    renderProducts();
+    if(cart.length === 0) closeCheckout();
+    else recalculateCheckoutTotals();
+}
+
+function updateCartUI() {
+    const container = document.getElementById('cart-items-container');
+    const countBadge = document.getElementById('cart-count');
+    const subtotalText = document.getElementById('cart-subtotal');
+    
+    container.innerHTML = "";
+    let totalCount = 0;
+    let subtotal = 0;
+
+    cart.forEach(item => {
+        totalCount += item.quantity;
+        subtotal += item.price * item.quantity;
+        
+        const product = sweetsData.find(p => p.id === item.id);
+        const reachMaxStock = item.quantity >= product.stock;
+
+        const itemRow = document.createElement('div');
+        itemRow.className = 'cart-item';
+        itemRow.innerHTML = `
+            <img src="${item.img}" class="cart-item-img">
+            <div class="cart-item-details">
+                <h4>${item.name}</h4>
+                <p style="color:var(--primary-color); font-weight:600;">$${(item.price * item.quantity).toFixed(2)}</p>
+                <div class="cart-item-qty">
+                    <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                    <span>${item.quantity}</span>
+                    <button class="qty-btn" ${reachMaxStock ? 'disabled' : ''} onclick="changeQuantity(${item.id}, 1)">+</button>
+                    <span class="remove-item" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></span>
+                </div>
+            </div>
+        `;
+        container.appendChild(itemRow);
+    });
+
+    countBadge.innerText = totalCount;
+    subtotalText.innerText = `$${subtotal.toFixed(2)}`;
+    
+    if (cart.length === 0) {
+        container.innerHTML = `<p style="text-align:center; margin-top:40px; color:#aaa;">Your treat box is empty!</p>`;
+    }
+}
+
+function openCheckout() {
+    if (cart.length === 0) {
+        alert("Please add items to your cart before checking out.");
+        return;
+    }
+    toggleCart(false);
+    
+    document.getElementById('promo-code-input').value = "";
+    document.getElementById('promo-status').style.display = "none";
+    activeDiscountRate = 0;
+    isFreeShipping = false;
+
+    recalculateCheckoutTotals();
+    document.getElementById('checkout-modal').style.display = 'flex';
+}
+
+function recalculateCheckoutTotals() {
+    let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    let discountAmount = subtotal * activeDiscountRate;
+    let deliveryFee = isFreeShipping ? 0.00 : 3.50;
+    let grandTotal = (subtotal - discountAmount) + deliveryFee;
+    if (grandTotal < 0) grandTotal = 0;
+
+    document.getElementById('modal-subtotal').innerText = `$${subtotal.toFixed(2)}`;
+    document.getElementById('modal-delivery').innerText = `$${deliveryFee.toFixed(2)}`;
+    
+    const discountRow = document.getElementById('discount-row');
+    if (activeDiscountRate > 0) {
+        document.getElementById('discount-label').innerText = `${activeDiscountRate * 100}%`;
+        document.getElementById('modal-discount').innerText = `-$${discountAmount.toFixed(2)}`;
+        discountRow.style.style.display = 'flex';
+    } else {
+        discountRow.style.display = 'none';
+    }
+
+    document.getElementById('modal-grand-total').innerText = `$${grandTotal.toFixed(2)}`;
+}
+
+function applyPromoCode() {
+    const codeInput = document.getElementById('promo-code-input').value.trim().toUpperCase();
+    const statusText = document.getElementById('promo-status');
+    
+    statusText.style.display = "block";
+    
+    if (codeInput === "SWEET20") {
+        activeDiscountRate = 0.20;
+        isFreeShipping = false; 
+        statusText.innerText = "🎉 Promo Applied: 20% Off Sweet Items!";
+        statusText.style.color = "var(--success-color)";
+    } else if (codeInput === "FREESHIP") {
+        activeDiscountRate = 0; 
+        isFreeShipping = true;
+        statusText.innerText = "🚚 Promo Applied: Free Premium Delivery!";
+        statusText.style.color = "var(--success-color)";
+    } else if (codeInput === "") {
+        statusText.innerText = "Please enter a code.";
+        statusText.style.color = "var(--dark-color)";
+        return;
+    } else {
+        activeDiscountRate = 0;
+        isFreeShipping = false;
+        statusText.innerText = "❌ Invalid Promo Code. Try SWEET20 or FREESHIP.";
+        statusText.style.color = "red";
+    }
+    
+    recalculateCheckoutTotals();
+}
+
+function closeCheckout() {
+    document.getElementById('checkout-modal').style.display = 'none';
+}
+
+function submitOrder(event) {
+    event.preventDefault();
+    
+    // final validation loop to guard stock verification status
+    let stockError = false;
+    cart.forEach(item => {
+        const product = sweetsData.find(p => p.id === item.id);
+        if (product && item.quantity > product.stock) {
+            stockError = true;
+            alert(`Oops! Demand is high and ${item.name} just ran out of adequate stock.`);
+        }
+    });
+
+    if (stockError) {
+        updateCartUI();
+        renderProducts();
+        return;
+    }
+
+    cart.forEach(item => {
+        const product = sweetsData.find(p => p.id === item.id);
+        if(product) {
+            product.stock -= item.quantity;
+        }
+    });
+
+    alert("✨ Success! Your order has been placed. Prepare your sweet tooth!");
+    cart = [];
+    activeDiscountRate = 0;
+    isFreeShipping = false;
+    updateCartUI();
+    renderProducts();
+    closeCheckout();
+    document.getElementById('order-form').reset();
+}
+</script>
+</body>
+</html>
