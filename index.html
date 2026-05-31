@@ -355,10 +355,20 @@ let searchQuery = '';
 let activeDiscountRate = 0; 
 let isFreeShipping = false;
 
+// Automatically load saved cart data when the page loads
 window.onload = () => {
+    const savedCart = localStorage.getItem('sugarbliss_cart');
+    if (savedCart) {
+        cart = JSON.parse(savedCart); // Convert saved string back into a JS array
+        updateCartUI();
+    }
     renderProducts();
 };
 
+// New Helper Function: Saves the current cart array to browser storage
+function saveCartToMemory() {
+    localStorage.setItem('sugarbliss_cart', JSON.stringify(cart)); // Convert array to a string to store it
+}
 function renderProducts() {
     const grid = document.getElementById('products-grid');
     if (!grid) return;
@@ -432,6 +442,7 @@ function addToCart(productId) {
     } else {
         cart.push({ ...product, quantity: 1 });
     }
+    saveCartToMemory();
     updateCartUI();
     renderProducts();
     toggleCart(true);
@@ -451,6 +462,7 @@ function changeQuantity(productId, change) {
         if (item.quantity <= 0) {
             cart = cart.filter(i => i.id !== productId);
         }
+        saveCartToMemory();
         updateCartUI();
         renderProducts();
         if(document.getElementById('checkout-modal').style.display === 'flex') {
@@ -461,6 +473,7 @@ function changeQuantity(productId, change) {
 
 function removeFromCart(productId) {
     cart = cart.filter(item => item.id !== productId);
+    saveCartToMemory();
     updateCartUI();
     renderProducts();
     if(cart.length === 0) closeCheckout();
@@ -613,6 +626,7 @@ function submitOrder(event) {
     launchLiveOrderTracker(); 
     
     cart = [];
+    saveCartToMemory();
     activeDiscountRate = 0;
     isFreeShipping = false;
     updateCartUI();
