@@ -53,13 +53,71 @@
         }
 
         /* --- Hero Section --- */
+      /* --- Hero Slider Layout Architecture --- */
         .hero {
-            background: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), url('https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover; background-position: center; height: 50vh;
-            display: flex; align-items: center; justify-content: center; text-align: center;
+            position: relative;
+            height: 50vh;
+            overflow: hidden; /* Guards against text sticking out sideways */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
-        .hero h1 { font-family: 'Playfair Display', serif; font-size: 45px; margin-bottom: 15px; }
 
+        /* The Sliding Background Layer */
+        .hero-slider-bg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+            animation: sweetSlidingImages 15s infinite ease-in-out;
+        }
+
+        /* The Sliding Text Layer Wrapper */
+        .hero-content-wrapper {
+            position: relative;
+            z-index: 2; /* Pushes text above the moving background image */
+            width: 100%;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1, .hero p {
+            animation: sweetSlidingText 15s infinite ease-in-out;
+        }
+
+        /* --- THE ANIMATION ENGINES --- */
+        
+        /* 1. Background Slider Animation */
+        @keyframes sweetSlidingImages {
+            0%, 28%, 100% {
+                background-image: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), 
+                                  url('https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=1200&q=80');
+            }
+            33%, 61% {
+                background-image: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), 
+                                  url('https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=1200&q=80');
+            }
+            66%, 95% {
+                background-image: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), 
+                                  url('https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80');
+            }
+        }
+
+        /* 2. Text Sliding and Fading Sync Animation */
+        @keyframes sweetSlidingText {
+            0%, 28% { transform: translateX(0); opacity: 1; }
+            30% { transform: translateX(-50px); opacity: 0; }
+            31% { transform: translateX(50px); opacity: 0; }
+            33%, 61% { transform: translateX(0); opacity: 1; }
+            63% { transform: translateX(-50px); opacity: 0; }
+            64% { transform: translateX(50px); opacity: 0; }
+            66%, 95% { transform: translateX(0); opacity: 1; }
+            98% { transform: translateX(-50px); opacity: 0; }
+            99% { transform: translateX(50px); opacity: 0; }
+        }
         /* --- Filter Categories --- */
         .section-title { text-align: center; margin: 40px 0 25px; font-family: 'Playfair Display', serif; font-size: 32px; }
         .categories { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
