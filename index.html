@@ -32,11 +32,33 @@
             display: flex; justify-content: space-between; align-items: center;
             max-width: 1200px; margin: 0 auto; padding: 15px 20px;
         }
+       /* --- Logo Base Style with Transition Engine --- */
         .logo {
-            font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700;
-            color: var(--primary-color); text-decoration: none;
+            font-family: 'Playfair Display', serif; 
+            font-size: 28px; 
+            font-weight: 700;
+            color: var(--primary-color); 
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth spring-back effect */
         }
-        .logo span { color: var(--secondary-color); }
+        .logo span { 
+            color: var(--secondary-color); 
+            display: inline-block;
+            transition: all 0.4s ease;
+        }
+
+        /* --- THE LOGO ACTION: Hover Interactions --- */
+        .logo:hover {
+            transform: scale(1.08) translateY(-2px); /* Pops outward and tilts upward slightly */
+            text-shadow: 0 4px 12px rgba(255, 107, 129, 0.25); /* Adds a premium soft glow */
+            color: var(--secondary-color); /* Swaps main name text color to yellow */
+        }
+        
+        .logo:hover span {
+            color: var(--primary-color); /* Swaps the "Bliss" sub-segment text color back to pink */
+            transform: rotate(4deg) scale(1.05); /* Gives the word Bliss a playful little bounce twitch */
+        }
         
         .search-container {
             display: flex; align-items: center; background: var(--gray-light);
