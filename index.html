@@ -84,24 +84,25 @@
             padding: 0 20px;
         }
 
-        .hero h1, .hero p {
+       .hero h1, .hero p {
+            color: #ffffff; /* Turns text white for dark image contrast */
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* Makes text perfectly legible */
             animation: sweetSlidingText 15s infinite ease-in-out;
         }
-
         /* --- THE ANIMATION ENGINES --- */
         
-        /* 1. Background Slider Animation */
+       /* 1. Background Slider Animation - Crystal Clear with No Pink Mask */
         @keyframes sweetSlidingImages {
             0%, 28%, 100% {
-                background-image: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), 
+                background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3)), 
                                   url('https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=1200&q=80');
             }
             33%, 61% {
-                background-image: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), 
+                background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3)), 
                                   url('https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=1200&q=80');
             }
             66%, 95% {
-                background-image: linear-gradient(135deg, rgba(255,245,246,0.85), rgba(255,230,235,0.85)), 
+                background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3)), 
                                   url('https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80');
             }
         }
@@ -246,13 +247,14 @@
     </header>
 
     <!-- Banner -->
-    <section class="hero">
-        <div>
+ <section class="hero">
+        <div class="hero-slider-bg"></div>
+        
+        <div class="hero-content-wrapper">
             <h1>The Sweetest Store in Town</h1>
             <p>Order custom hampers, premium chocolates, and authentic heritage recipes.</p>
         </div>
     </section>
-
     <!-- Main Content Menu -->
     <section>
         <h2 class="section-title">Explore Our Treats</h2>
