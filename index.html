@@ -172,6 +172,15 @@
                 <i class="fas fa-search" style="color: #aaa;"></i>
                 <input type="text" id="search-input" placeholder="Search for sweets..." oninput="handleSearch()">
             </div>
+            <div class="nav-icons">
+                <!-- FEATURE: Persistent User Profile Button Interface -->
+                <i class="fas fa-user" id="profile-btn" onclick="openProfileDashboard()" style="cursor: pointer; margin-right: 10px; color: var(--dark-color); transition: color 0.2s;" onmouseenter="this.style.color='var(--primary-color)'" onmouseleave="this.style.color='var(--dark-color)'"></i>
+
+                <div class="cart-icon-wrapper" onclick="toggleCart(true)">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+            </div>
 
             <div class="nav-icons">
                 <div class="cart-icon-wrapper" onclick="toggleCart(true)">
@@ -675,6 +684,10 @@ function resetTrackerUI() {
 
 function closeTrackerModal() {
     document.getElementById('orderTrackerModal').style.display = 'none';
+}
+// Function to handle the user profile interaction event
+function openProfileDashboard() {
+    alert("👤 Welcome back! Sweet rewards account profile details, purchase history, and discount tier tracking features are coming soon.");
 }
 </script>
 </body>
