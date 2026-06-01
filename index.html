@@ -144,7 +144,7 @@
         .product-price { font-size: 20px; color: var(--primary-color); font-weight: 700; margin-bottom: 15px; }
         
         .add-to-cart {
-            background-color: var(--secondary-color); color: var(--dark-color); border: none;
+            background-color: var(--secondary-color); color: var(--white); border: none;
             padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;
         }
         .add-to-cart:hover { background-color: #e1a624; }
@@ -287,15 +287,27 @@
             border: 1px solid rgba(0,0,0,0.01); display: flex; justify-content: space-between; align-items: center;
         }
 
+        /* --- Footer Styles --- */
+        footer {
+            background-color: var(--dark-color); color: var(--white);
+            padding: 40px 20px; text-align: center; margin-top: 40px;
+        }
+        .footer-content h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 10px; color: var(--secondary-color); }
+        .footer-content p { margin-bottom: 10px; font-size: 14px; color: #bbb; }
+        .social-icons { margin: 20px 0; }
+        .social-icons a { color: var(--white); margin: 0 12px; font-size: 20px; transition: color 0.3s; text-decoration: none; }
+        .social-icons a:hover { color: var(--primary-color); }
+
         @media (max-width: 500px) {
             .profile-page-overlay { padding: 10px; }
             .app-frame-container { padding: 15px 10px 25px; border-radius: 24px; margin: 10px auto; }
+            .navbar { flex-direction: column; gap: 15px; }
+            .search-container { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
     <header>
         <nav class="navbar">
             <a href="#" class="logo">Sugar<span>Bliss</span></a>
@@ -316,7 +328,6 @@
         </nav>
     </header>
 
-    <!-- Banner -->
     <section class="hero">
         <div class="hero-slider-bg"></div>
         <div class="hero-content-wrapper">
@@ -325,7 +336,6 @@
         </div>
     </section>
 
-    <!-- Main Grid Content Section -->
     <section>
         <h2 class="section-title">Explore Our Treats</h2>
         <div class="categories">
@@ -337,7 +347,6 @@
         <div class="products-container" id="products-grid"></div>
     </section>
 
-    <!-- Sliding Shopping Cart Drawer Container -->
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
             <h3>Your Sweet Box</h3>
@@ -353,21 +362,17 @@
         </div>
     </div>
 
-    <!-- MODERN PHONE OVERLAY ADAPTED FROM IMAGE 66baa0dc5bbe0bfbc1e4ebf6affef7be.webp -->
     <div class="profile-page-overlay" id="profile-drawer">
         <div class="app-frame-container">
             
-            <!-- Top Controls bar -->
             <div class="app-top-bar">
                 <div class="app-circle-btn" onclick="toggleProfile(false)"><i class="fas fa-chevron-left"></i></div>
                 <div class="app-page-title">Profile</div>
                 <div class="app-circle-btn"><i class="fas fa-cog"></i></div>
             </div>
 
-            <!-- Avatar & Progress Box -->
             <div class="app-profile-card">
                 <div class="app-avatar-wrapper">
-                    <!-- Standard clear profile silhouette icon -->
                     <div class="app-avatar-img" style="background:#E5ECE5; display:flex; align-items:center; justify-content:center; color:#7C8B7C; font-size:36px; font-weight:bold;">G</div>
                 </div>
                 
@@ -383,7 +388,6 @@
                 </div>
             </div>
 
-            <!-- Account Settings Data Stack list items styled exactly like image -->
             <div class="app-section-heading">Account settings</div>
             <div class="app-list-stack">
                 
@@ -422,13 +426,11 @@
 
             </div>
 
-            <!-- Dynamic Confectionery Session History Stack list group area -->
             <div class="app-section-heading">Session History</div>
             <div class="app-list-stack" id="dashboard-history-pane">
                 <p style="text-align: center; color: #7C8B7C; padding: 25px; font-size: 13px; font-style: italic;">No past orders found in this session.</p>
             </div>
 
-            <!-- Sleek Bottom Action Nav Dock matching image theme layout link nodes -->
             <div class="app-nav-dock">
                 <div class="dock-item" onclick="toggleProfile(false)"><i class="fas fa-home"></i></div>
                 <div class="dock-item"><i class="fas fa-th-large"></i></div>
@@ -524,6 +526,20 @@
             <button onclick="closeTrackerModal()" style="background: var(--dark-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.2s;">Minimize Window</button>
         </div>
     </div>
+
+    <footer>
+        <div class="footer-content">
+            <h3>SugarBliss Confectionery</h3>
+            <p>123 Sweet Tooth Lane, Dessert City</p>
+            <p>Email: support@sugarbliss.com | Phone: +1 (555) 019-2834</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+            <p style="margin-top: 20px; font-size: 12px; color: #888;">&copy; 2026 SugarBliss. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         const sweetsData = [
