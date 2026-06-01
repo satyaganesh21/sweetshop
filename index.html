@@ -199,12 +199,44 @@
         .cart-total-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
         .checkout-btn { width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 25px; font-weight: bold; cursor: pointer; }
 
-        /* --- Checkout Modal --- */
+       /* --- Clean Single-Card Express Checkout Layout --- */
         .modal-overlay {
-            position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5);
-            display: none; justify-content: center; align-items: center; z-index: 1001;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(44, 62, 80, 0.4); backdrop-filter: blur(4px);
+            display: none; justify-content: center; align-items: center; z-index: 2000; padding: 20px;
         }
-        .modal { background: white; padding: 25px; border-radius: 15px; max-width: 460px; width: 90%; position: relative; max-height: 90vh; overflow-y: auto; }
+        .express-checkout-card {
+            background: #ffffff; width: 100%; max-width: 550px; border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); padding: 30px; position: relative;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .express-header {
+            text-align: center; margin-bottom: 25px; border-bottom: 2px dashed #f5f5f5; padding-bottom: 15px;
+        }
+        .express-header h3 { font-size: 22px; color: var(--dark-color); }
+        
+        /* Step-by-Step Flow Indicator */
+        .step-badge {
+            display: inline-block; background: var(--primary-color); color: white;
+            font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px;
+        }
+        .express-section { margin-bottom: 20px; }
+        
+        /* Clean Input Boxes */
+        .clean-input {
+            width: 100%; padding: 12px 16px; margin-top: 5px; border: 1px solid #ddd;
+            border-radius: 8px; font-size: 14px; outline: none; background: #fafafa; transition: all 0.3s;
+        }
+        .clean-input:focus { border-color: var(--primary-color); background: #fff; box-shadow: 0 0 0 3px rgba(255,107,129,0.1); }
+        
+        /* Micro Summary Box inside the card */
+        .mini-summary-box {
+            background: var(--gray-light); border-radius: 10px; padding: 15px; margin-top: 5px;
+        }
+        .mini-summary-row { display: flex; justify-content: space-between; font-size: 14px; margin-bottom: 6px; }
+        
+        .close-express { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 18px; color: #999; }
+        .close-express:hover { color: #333; }
         .close-modal { position: absolute; top: 15px; right: 20px; font-size: 22px; cursor: pointer; }
         .form-group { margin-bottom: 12px; }
         .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
@@ -216,9 +248,6 @@
         .promo-input-group input { flex-grow: 1; padding: 10px; border: 1px solid #ccc; border-radius: 6px; text-transform: uppercase; }
         .promo-btn { background: var(--dark-color); color: white; border: none; padding: 0 15px; border-radius: 6px; font-weight: 600; cursor: pointer; }
         .promo-message { font-size: 12px; margin-top: 4px; display: none; }
-        
-        .summary-box { background: #fdf2f4; padding: 15px; border-radius: 8px; margin: 15px 0; font-size: 14px; }
-        .summary-box div { display: flex; justify-content: space-between; margin-bottom: 5px; }
 
         /* --- Footer Styles --- */
         footer {
@@ -308,22 +337,61 @@
     </div>
 
     <!-- Order Checkout Modal Window with Active Promo Form -->
-    <div class="modal-overlay" id="checkout-modal">
-        <div class="modal">
-            <i class="fas fa-times close-modal" onclick="closeCheckout()"></i>
-            <h3>Complete Your Order</h3>
+   <div class="modal-overlay" id="checkout-modal">
+        <div class="express-checkout-card">
+            <i class="fas fa-times close-express" onclick="closeCheckout()"></i>
             
-            <div class="summary-box">
-                <div><span>Items Subtotal:</span> <span id="modal-subtotal">$0.00</span></div>
-                <div id="discount-row" style="display:none; color: var(--success-color);">
-                    <span>Discount (<span id="discount-label">0%</span>):</span> 
-                    <span id="modal-discount">-$0.00</span>
-                </div>
-                <div><span>Estimated Delivery:</span> <span id="modal-delivery">$3.50</span></div>
-                <div style="font-weight:bold; border-top:1px dashed #ccc; padding-top:5px; margin-top:5px;">
-                    <span>Grand Total:</span> <span id="modal-grand-total">$0.00</span>
-                </div>
+            <div class="express-header">
+                <h3>✨ Secure Checkout</h3>
+                <p style="font-size: 13px; color: #777; margin-top: 3px;">Review your box and enter delivery info below.</p>
             </div>
+
+            <div class="express-section">
+                <span class="step-badge">STEP 1</span>
+                <label style="display:block; font-weight:600; font-size:14px; color:#333;">Your Sweet Selections</label>
+                <div class="mini-summary-box" id="express-summary-pane">
+                    </div>
+            </div>
+
+            <div class="express-section" style="margin-top: -10px;">
+                <div class="promo-input-group">
+                    <input type="text" id="promo-code-input" class="clean-input" placeholder="Have a promo code? Enter it here" style="margin-top:0;">
+                    <button type="button" class="promo-btn" onclick="applyPromoCode()" style="border-radius:8px;">Apply</button>
+                </div>
+                <p id="promo-status" class="promo-message" style="margin-top:5px; font-weight:500;"></p>
+            </div>
+
+            <form id="order-form" onsubmit="submitOrder(event)">
+                <div class="express-section">
+                    <span class="step-badge">STEP 2</span>
+                    <label style="display:block; font-weight:600; font-size:14px; color:#333; margin-bottom:5px;">Where should we deliver?</label>
+                    
+                    <input type="text" class="clean-input" required placeholder="Full Name">
+                    <input type="text" class="clean-input" required placeholder="Street Address, Building, Apartment No.">
+                    
+                    <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+                        <input type="text" class="clean-input" required placeholder="City">
+                        <input type="text" class="clean-input" required placeholder="PIN Code">
+                    </div>
+                    <input type="tel" class="clean-input" required placeholder="Mobile Phone Number">
+                </div>
+
+                <div class="express-section" style="margin-bottom: 25px;">
+                    <span class="step-badge">STEP 3</span>
+                    <label style="display:block; font-weight:600; font-size:14px; color:#333; margin-bottom:5px;">Payment Method</label>
+                    <div style="border: 1px solid #e0e0e0; border-radius: 8px; padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; background: #fafafa;">
+                        <div style="display:flex; align-items:center; gap:10px; font-size:14px;">
+                            <input type="radio" checked style="accent-color: var(--primary-color);">
+                            <strong>Razorpay (UPI, Cards, NetBanking)</strong>
+                        </div>
+                        <i class="fas fa-shield-alt" style="color: var(--success-color);"></i>
+                    </div>
+                </div>
+
+                <button type="submit" class="checkout-btn" style="padding:14px; font-size:16px; border-radius:8px; background:var(--primary-color);">Place My Order Safely</button>
+            </form>
+        </div>
+    </div>
 
             <!-- FEATURE FORM SECTION: Promo Input -->
             <div class="form-group" style="margin-bottom: 20px;">
@@ -626,27 +694,51 @@ function openCheckout() {
     recalculateCheckoutTotals();
     document.getElementById('checkout-modal').style.display = 'flex';
 }
-
 function recalculateCheckoutTotals() {
+    const summaryPane = document.getElementById('express-summary-pane');
+    if (!summaryPane) return;
+
     let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     let discountAmount = subtotal * activeDiscountRate;
     let deliveryFee = isFreeShipping ? 0.00 : 3.50;
     let grandTotal = (subtotal - discountAmount) + deliveryFee;
     if (grandTotal < 0) grandTotal = 0;
 
-    document.getElementById('modal-subtotal').innerText = `$${subtotal.toFixed(2)}`;
-    document.getElementById('modal-delivery').innerText = `$${deliveryFee.toFixed(2)}`;
-    
-    const discountRow = document.getElementById('discount-row');
-    if (activeDiscountRate > 0) {
-        document.getElementById('discount-label').innerText = `${activeDiscountRate * 100}%`;
-        document.getElementById('modal-discount').innerText = `-$${discountAmount.toFixed(2)}`;
-        discountRow.style.display = 'flex'; 
-    } else {
-        discountRow.style.display = 'none';
-    }
+    // Build a clean, simplified list of items inside the summary box
+    let itemsListHTML = '<div style="max-height: 100px; overflow-y: auto; margin-bottom: 10px; border-bottom: 1px solid #eef0f2; padding-bottom: 8px;">';
+    cart.forEach(item => {
+        itemsListHTML += `
+            <div style="display:flex; justify-content:space-between; font-size:13px; color:#555; margin-bottom:4px;">
+                <span>• ${item.name} <strong>x${item.quantity}</strong></span>
+                <span>$${(item.price * item.quantity).toFixed(2)}</span>
+            </div>
+        `;
+    });
+    itemsListHTML += '</div>';
 
-    document.getElementById('modal-grand-total').innerText = `$${grandTotal.toFixed(2)}`;
+    // Append math rows underneath the product list
+    const discountDisplay = activeDiscountRate > 0 ? 'flex' : 'none';
+    
+    itemsListHTML += `
+        <div class="mini-summary-row">
+            <span>Subtotal:</span>
+            <span>$${subtotal.toFixed(2)}</span>
+        </div>
+        <div class="mini-summary-row" id="discount-row" style="display: ${discountDisplay}; color: var(--success-color); font-weight:500;">
+            <span>Discount Applied (${activeDiscountRate * 100}%):</span>
+            <span>-$${discountAmount.toFixed(2)}</span>
+        </div>
+        <div class="mini-summary-row">
+            <span>Delivery Fee:</span>
+            <span>${isFreeShipping ? 'FREE' : '$' + deliveryFee.toFixed(2)}</span>
+        </div>
+        <div class="mini-summary-row" style="margin-top:8px; padding-top:8px; border-top:1px dashed #ccc; font-weight:bold; font-size:16px; color:var(--dark-color);">
+            <span>Grand Total:</span>
+            <span style="color:var(--primary-color);">$${grandTotal.toFixed(2)}</span>
+        </div>
+    `;
+
+    summaryPane.innerHTML = itemsListHTML;
 }
 
 function applyPromoCode() {
