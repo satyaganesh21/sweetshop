@@ -32,7 +32,8 @@
             display: flex; justify-content: space-between; align-items: center;
             max-width: 1200px; margin: 0 auto; padding: 15px 20px;
         }
-       /* --- Logo Base Style with Transition Engine --- */
+        
+        /* --- Logo Base Style with Transition Engine --- */
         .logo {
             font-family: 'Playfair Display', serif; 
             font-size: 28px; 
@@ -40,7 +41,7 @@
             color: var(--primary-color); 
             text-decoration: none;
             display: inline-block;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Smooth spring-back effect */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         .logo span { 
             color: var(--secondary-color); 
@@ -50,14 +51,13 @@
 
         /* --- THE LOGO ACTION: Hover Interactions --- */
         .logo:hover {
-            transform: scale(1.08) translateY(-2px); /* Pops outward and tilts upward slightly */
-            text-shadow: 0 4px 12px rgba(255, 107, 129, 0.25); /* Adds a premium soft glow */
-            color: var(--secondary-color); /* Swaps main name text color to yellow */
+            transform: scale(1.08) translateY(-2px);
+            text-shadow: 0 4px 12px rgba(255, 107, 129, 0.25);
+            color: var(--secondary-color);
         }
-        
         .logo:hover span {
-            color: var(--primary-color); /* Swaps the "Bliss" sub-segment text color back to pink */
-            transform: rotate(4deg) scale(1.05); /* Gives the word Bliss a playful little bounce twitch */
+            color: var(--primary-color);
+            transform: rotate(4deg) scale(1.05);
         }
         
         .search-container {
@@ -74,12 +74,11 @@
             color: white; font-size: 11px; padding: 2px 6px; border-radius: 50%; font-weight: bold;
         }
 
-        /* --- Hero Section --- */
-      /* --- Hero Slider Layout Architecture --- */
+        /* --- Hero Slider Layout Architecture --- */
         .hero {
             position: relative;
             height: 50vh;
-            overflow: hidden; /* Guards against text sticking out sideways */
+            overflow: hidden;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -100,20 +99,18 @@
         /* The Sliding Text Layer Wrapper */
         .hero-content-wrapper {
             position: relative;
-            z-index: 2; /* Pushes text above the moving background image */
+            z-index: 2;
             width: 100%;
             max-width: 800px;
             padding: 0 20px;
         }
-
-       .hero h1, .hero p {
-            color: #ffffff; /* Turns text white for dark image contrast */
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); /* Makes text perfectly legible */
+        .hero h1, .hero p {
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
             animation: sweetSlidingText 15s infinite ease-in-out;
         }
+
         /* --- THE ANIMATION ENGINES --- */
-        
-       /* 1. Background Slider Animation - Crystal Clear with No Pink Mask */
         @keyframes sweetSlidingImages {
             0%, 28%, 100% {
                 background-image: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.3)), 
@@ -129,7 +126,6 @@
             }
         }
 
-        /* 2. Text Sliding and Fading Sync Animation */
         @keyframes sweetSlidingText {
             0%, 28% { transform: translateX(0); opacity: 1; }
             30% { transform: translateX(-50px); opacity: 0; }
@@ -141,6 +137,7 @@
             98% { transform: translateX(-50px); opacity: 0; }
             99% { transform: translateX(50px); opacity: 0; }
         }
+
         /* --- Filter Categories --- */
         .section-title { text-align: center; margin: 40px 0 25px; font-family: 'Playfair Display', serif; font-size: 32px; }
         .categories { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
@@ -199,7 +196,7 @@
         .cart-total-row { display: flex; justify-content: space-between; font-weight: bold; font-size: 18px; margin-bottom: 15px; }
         .checkout-btn { width: 100%; background: var(--primary-color); color: white; border: none; padding: 12px; border-radius: 25px; font-weight: bold; cursor: pointer; }
 
-       /* --- Clean Single-Card Express Checkout Layout --- */
+        /* --- Clean Single-Card Express Checkout Layout --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(44, 62, 80, 0.4); backdrop-filter: blur(4px);
@@ -215,21 +212,18 @@
         }
         .express-header h3 { font-size: 22px; color: var(--dark-color); }
         
-        /* Step-by-Step Flow Indicator */
         .step-badge {
             display: inline-block; background: var(--primary-color); color: white;
             font-size: 11px; font-weight: bold; padding: 2px 8px; border-radius: 10px; margin-bottom: 8px;
         }
         .express-section { margin-bottom: 20px; }
         
-        /* Clean Input Boxes */
         .clean-input {
             width: 100%; padding: 12px 16px; margin-top: 5px; border: 1px solid #ddd;
             border-radius: 8px; font-size: 14px; outline: none; background: #fafafa; transition: all 0.3s;
         }
         .clean-input:focus { border-color: var(--primary-color); background: #fff; box-shadow: 0 0 0 3px rgba(255,107,129,0.1); }
         
-        /* Micro Summary Box inside the card */
         .mini-summary-box {
             background: var(--gray-light); border-radius: 10px; padding: 15px; margin-top: 5px;
         }
@@ -237,11 +231,6 @@
         
         .close-express { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 18px; color: #999; }
         .close-express:hover { color: #333; }
-        .close-modal { position: absolute; top: 15px; right: 20px; font-size: 22px; cursor: pointer; }
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; outline: none;}
-        .form-group input:focus { border-color: var(--primary-color); }
         
         /* FEATURE: Promo Code UI Elements */
         .promo-input-group { display: flex; gap: 8px; margin-bottom: 12px; }
@@ -251,11 +240,8 @@
 
         /* --- Footer Styles --- */
         footer {
-            background-color: var(--dark-color);
-            color: var(--white);
-            padding: 40px 20px;
-            text-align: center;
-            margin-top: 40px;
+            background-color: var(--dark-color); color: var(--white);
+            padding: 40px 20px; text-align: center; margin-top: 40px;
         }
         .footer-content h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 10px; color: var(--secondary-color); }
         .footer-content p { margin-bottom: 10px; font-size: 14px; color: #bbb; }
@@ -298,25 +284,23 @@
     </header>
 
     <!-- Banner -->
- <section class="hero">
+    <section class="hero">
         <div class="hero-slider-bg"></div>
-        
         <div class="hero-content-wrapper">
             <h1>The Sweetest Store in Town</h1>
             <p>Order custom hampers, premium chocolates, and authentic heritage recipes.</p>
         </div>
     </section>
+
     <!-- Main Content Menu -->
     <section>
         <h2 class="section-title">Explore Our Treats</h2>
-        
         <div class="categories">
             <button class="cat-btn active" onclick="filterCategory('all', event)">All Sweets</button>
             <button class="cat-btn" onclick="filterCategory('traditional', event)">Traditional Treats</button>
             <button class="cat-btn" onclick="filterCategory('chocolates', event)">Chocolates</button>
             <button class="cat-btn" onclick="filterCategory('baked', event)">Baked Delights</button>
         </div>
-
         <div class="products-container" id="products-grid"></div>
     </section>
 
@@ -336,8 +320,8 @@
         </div>
     </div>
 
-    <!-- Order Checkout Modal Window with Active Promo Form -->
-   <div class="modal-overlay" id="checkout-modal">
+    <!-- Unified Single-Card Express Checkout Screen -->
+    <div class="modal-overlay" id="checkout-modal">
         <div class="express-checkout-card">
             <i class="fas fa-times close-express" onclick="closeCheckout()"></i>
             
@@ -349,8 +333,7 @@
             <div class="express-section">
                 <span class="step-badge">STEP 1</span>
                 <label style="display:block; font-weight:600; font-size:14px; color:#333;">Your Sweet Selections</label>
-                <div class="mini-summary-box" id="express-summary-pane">
-                    </div>
+                <div class="mini-summary-box" id="express-summary-pane"></div>
             </div>
 
             <div class="express-section" style="margin-top: -10px;">
@@ -365,10 +348,8 @@
                 <div class="express-section">
                     <span class="step-badge">STEP 2</span>
                     <label style="display:block; font-weight:600; font-size:14px; color:#333; margin-bottom:5px;">Where should we deliver?</label>
-                    
                     <input type="text" class="clean-input" required placeholder="Full Name">
                     <input type="text" class="clean-input" required placeholder="Street Address, Building, Apartment No.">
-                    
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
                         <input type="text" class="clean-input" required placeholder="City">
                         <input type="text" class="clean-input" required placeholder="PIN Code">
@@ -393,72 +374,38 @@
         </div>
     </div>
 
-            <!-- FEATURE FORM SECTION: Promo Input -->
-            <div class="form-group" style="margin-bottom: 20px;">
-                <label>Have a Sweet Promo Code?</label>
-                <div class="promo-input-group">
-                    <input type="text" id="promo-code-input" placeholder="e.g. SWEET20">
-                    <button type="button" class="promo-btn" onclick="applyPromoCode()">Apply</button>
-                </div>
-                <p id="promo-status" class="promo-message"></p>
-            </div>
-
-            <form id="order-form" onsubmit="submitOrder(event)">
-                <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" required placeholder="John Doe">
-                </div>
-                <div class="form-group">
-                    <label>Delivery Address</label>
-                    <input type="text" required placeholder="123 Sweet St, Candy City">
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" required placeholder="(555) 123-4567">
-                </div>
-                <button type="submit" class="checkout-btn" style="background: var(--secondary-color); color: var(--dark-color)">Place Sweet Order</button>
-            </form>
-        </div>
-    </div>
     <!-- Live Order Tracker Modal Container -->
-<div id="orderTrackerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;">
-    <div style="background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-family: sans-serif;">
-        
-        <h2 style="color: #ff477e; margin-bottom: 5px;">SugarBliss Order Tracking</h2>
-        <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Order ID: <span id="trackerOrderId" style="font-weight: bold;">#SB-0000</span></p>
-        
-        <!-- Progress Steps Layout -->
-        <div style="display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; padding: 0 10px;">
-            <!-- Connector Line Background -->
-            <div id="trackerLine" style="position: absolute; top: 15px; left: 10%; width: 80%; height: 4px; background: #e0e0e0; z-index: 1; transition: background 0.5s;"></div>
+    <div id="orderTrackerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 30px; border-radius: 15px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); font-family: sans-serif;">
+            <h2 style="color: #ff477e; margin-bottom: 5px;">SugarBliss Order Tracking</h2>
+            <p style="color: #666; font-size: 14px; margin-bottom: 25px;">Order ID: <span id="trackerOrderId" style="font-weight: bold;">#SB-0000</span></p>
             
-            <!-- Step 1 -->
-            <div style="z-index: 2; text-align: center; width: 60px;">
-                <div id="stepCircle1" style="width: 34px; height: 34px; border-radius: 50%; background: #ff477e; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">✓</div>
-                <span style="font-size: 12px; font-weight: bold; color: #333;">Confirmed</span>
+            <div style="display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; padding: 0 10px;">
+                <div id="trackerLine" style="position: absolute; top: 15px; left: 10%; width: 80%; height: 4px; background: #e0e0e0; z-index: 1; transition: background 0.5s;"></div>
+                
+                <div style="z-index: 2; text-align: center; width: 60px;">
+                    <div id="stepCircle1" style="width: 34px; height: 34px; border-radius: 50%; background: #ff477e; color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">✓</div>
+                    <span style="font-size: 12px; font-weight: bold; color: #333;">Confirmed</span>
+                </div>
+                
+                <div style="z-index: 2; text-align: center; width: 60px;">
+                    <div id="stepCircle2" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">2</div>
+                    <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText2">Preparing</span>
+                </div>
+                
+                <div style="z-index: 2; text-align: center; width: 60px;">
+                    <div id="stepCircle3" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">3</div>
+                    <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText3">Dispatched</span>
+                </div>
             </div>
             
-            <!-- Step 2 -->
-            <div style="z-index: 2; text-align: center; width: 60px;">
-                <div id="stepCircle2" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">2</div>
-                <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText2">Preparing</span>
+            <div style="background: #fff0f3; padding: 15px; border-radius: 10px; border: 1px solid #ffccd5; margin-bottom: 20px;">
+                <p id="trackerStatusMessage" style="margin: 0; font-size: 15px; color: #c9184a; font-weight: bold;">We have received your order! Preparing soon...</p>
             </div>
             
-            <!-- Step 3 -->
-            <div style="z-index: 2; text-align: center; width: 60px;">
-                <div id="stepCircle3" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">3</div>
-                <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText3">Dispatched</span>
-            </div>
+            <button onclick="closeTrackerModal()" style="background: #666; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Close Window</button>
         </div>
-        
-        <!-- Live Status Updates Box -->
-        <div style="background: #fff0f3; padding: 15px; border-radius: 10px; border: 1px solid #ffccd5; margin-bottom: 20px;">
-            <p id="trackerStatusMessage" style="margin: 0; font-size: 15px; color: #c9184a; font-weight: bold;">We have received your order! Preparing soon...</p>
-        </div>
-        
-        <button onclick="closeTrackerModal()" style="background: #666; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold;">Close Window</button>
     </div>
-</div>
 
     <!-- Footer Section -->
     <footer>
@@ -477,388 +424,381 @@
 
     <!-- Application Script Logic -->
     <script>
-// Database
-const sweetsData = [
-    { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
-    { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
-    { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
-    { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
-    { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
-    { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-    { id: 7, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
-    { id: 8, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
-    { id: 9, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
-    { id: 10, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
-    { id: 11, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
-    { id: 12, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
-    { id: 13, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
-    { id: 14, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
-    { id: 15, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
-    { id: 16, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
-    { id: 17, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
-    { id: 18, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" }
+        // Database
+        const sweetsData = [
+            { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+            { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+            { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+            { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+            { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+            { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
+            { id: 7, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+            { id: 8, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+            { id: 9, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+            { id: 10, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+            { id: 11, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+            { id: 12, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
+            { id: 13, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+            { id: 14, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+            { id: 15, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+            { id: 16, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+            { id: 17, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+            { id: 18, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" }
+        ];
 
+        // Application State Management
+        let cart = [];
+        let currentCategory = 'all';
+        let searchQuery = '';
+        let activeDiscountRate = 0; 
+        let isFreeShipping = false;
 
-];
+        window.onload = () => {
+            const savedCart = localStorage.getItem('sugarbliss_cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+            renderProducts();
+        };
 
-// Application State Management
-let cart = [];
-let currentCategory = 'all';
-let searchQuery = '';
-
-// FEATURE STATE: Tracking active modifiers
-let activeDiscountRate = 0; 
-let isFreeShipping = false;
-
-// Automatically load saved cart data when the page loads
-window.onload = () => {
-    const savedCart = localStorage.getItem('sugarbliss_cart');
-    if (savedCart) {
-        cart = JSON.parse(savedCart); // Convert saved string back into a JS array
-        updateCartUI();
-    }
-    renderProducts();
-};
-
-// New Helper Function: Saves the current cart array to browser storage
-function saveCartToMemory() {
-    localStorage.setItem('sugarbliss_cart', JSON.stringify(cart)); // Convert array to a string to store it
-}
-function renderProducts() {
-    const grid = document.getElementById('products-grid');
-    if (!grid) return;
-    grid.innerHTML = "";
-
-    const filteredProducts = sweetsData.filter(product => {
-        const matchesCategory = (currentCategory === 'all' || product.category === currentCategory);
-        const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
-        return matchesCategory && matchesSearch;
-    });
-
-    if(filteredProducts.length === 0) {
-        grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #999;">No delicious sweets found matching your selection.</p>`;
-        return;
-    }
-
-    filteredProducts.forEach(sweet => {
-        const cartItem = cart.find(item => item.id === sweet.id);
-        const currentCartQty = cartItem ? cartItem.quantity : 0;
-        const availableStock = sweet.stock - currentCartQty;
-        
-        const isOutOfStock = availableStock <= 0;
-        const buttonText = isOutOfStock ? "Out of Stock" : "Add to Cart";
-        const stockText = sweet.stock === 0 ? "Unavailable" : `Stock: ${availableStock} left`;
-
-        const card = document.createElement('div');
-        card.className = 'product-card';
-        card.innerHTML = `
-            <img src="${sweet.img}" alt="${sweet.name}" class="product-img">
-            <div class="product-info">
-                <h3 class="product-title">${sweet.name}</h3>
-                <p class="product-stock">${stockText}</p>
-                <p class="product-price">$${sweet.price.toFixed(2)}</p>
-                <button class="add-to-cart" ${isOutOfStock ? 'disabled' : ''} onclick="addToCart(${sweet.id})">${buttonText}</button>
-            </div>
-        `;
-        grid.appendChild(card);
-    });
-}
-
-function filterCategory(category, event) {
-    currentCategory = category;
-    document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    renderProducts();
-}
-
-function handleSearch() {
-    searchQuery = document.getElementById('search-input').value;
-    renderProducts();
-}
-
-function toggleCart(open) {
-    const drawer = document.getElementById('cart-drawer');
-    if (open) drawer.classList.add('open');
-    else drawer.classList.remove('open');
-}
-
-function addToCart(productId) {
-    const product = sweetsData.find(p => p.id === productId);
-    const existingItem = cart.find(item => item.id === productId);
-    const currentQty = existingItem ? existingItem.quantity : 0;
-    
-    if (currentQty >= product.stock) {
-        alert("Sorry, no more stock available for this sweet item!");
-        return;
-    }
-
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ ...product, quantity: 1 });
-    }
-    saveCartToMemory();
-    updateCartUI();
-    renderProducts();
-    toggleCart(true);
-}
-
-function changeQuantity(productId, change) {
-    const product = sweetsData.find(p => p.id === productId);
-    const item = cart.find(item => item.id === productId);
-    
-    if (item) {
-        if (change > 0 && product && item.quantity >= product.stock) {
-            alert("Cannot add more. Maximum limit reached for this item.");
-            return;
+        function saveCartToMemory() {
+            localStorage.setItem('sugarbliss_cart', JSON.stringify(cart));
         }
-        
-        item.quantity += change;
-        if (item.quantity <= 0) {
-            cart = cart.filter(i => i.id !== productId);
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            if (!grid) return;
+            grid.innerHTML = "";
+
+            const filteredProducts = sweetsData.filter(product => {
+                const matchesCategory = (currentCategory === 'all' || product.category === currentCategory);
+                const matchesSearch = product.name.toLowerCase().includes(searchQuery.toLowerCase());
+                return matchesCategory && matchesSearch;
+            });
+
+            if(filteredProducts.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px; color: #999;">No delicious sweets found matching your selection.</p>`;
+                return;
+            }
+
+            filteredProducts.forEach(sweet => {
+                const cartItem = cart.find(item => item.id === sweet.id);
+                const currentCartQty = cartItem ? cartItem.quantity : 0;
+                const availableStock = sweet.stock - currentCartQty;
+                
+                const isOutOfStock = availableStock <= 0;
+                const buttonText = isOutOfStock ? "Out of Stock" : "Add to Cart";
+                const stockText = sweet.stock === 0 ? "Unavailable" : `Stock: ${availableStock} left`;
+
+                const card = document.createElement('div');
+                card.className = 'product-card';
+                card.innerHTML = `
+                    <img src="${sweet.img}" alt="${sweet.name}" class="product-img">
+                    <div class="product-info">
+                        <h3 class="product-title">${sweet.name}</h3>
+                        <p class="product-stock">${stockText}</p>
+                        <p class="product-price">$${sweet.price.toFixed(2)}</p>
+                        <button class="add-to-cart" ${isOutOfStock ? 'disabled' : ''} onclick="addToCart(${sweet.id})">${buttonText}</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
         }
-        saveCartToMemory();
-        updateCartUI();
-        renderProducts();
-        if(document.getElementById('checkout-modal').style.display === 'flex') {
-            recalculateCheckoutTotals(); 
+
+        function filterCategory(category, event) {
+            currentCategory = category;
+            document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            renderProducts();
         }
-    }
-}
 
-function removeFromCart(productId) {
-    cart = cart.filter(item => item.id !== productId);
-    saveCartToMemory();
-    updateCartUI();
-    renderProducts();
-    if(cart.length === 0) closeCheckout();
-    else recalculateCheckoutTotals();
-}
+        function handleSearch() {
+            searchQuery = document.getElementById('search-input').value;
+            renderProducts();
+        }
 
-function updateCartUI() {
-    const container = document.getElementById('cart-items-container');
-    const countBadge = document.getElementById('cart-count');
-    const subtotalText = document.getElementById('cart-subtotal');
-    
-    if (!container || !countBadge || !subtotalText) return;
-    container.innerHTML = "";
-    let totalCount = 0;
-    let subtotal = 0;
+        function toggleCart(open) {
+            const drawer = document.getElementById('cart-drawer');
+            if (open) drawer.classList.add('open');
+            else drawer.classList.remove('open');
+        }
 
-    cart.forEach(item => {
-        totalCount += item.quantity;
-        subtotal += item.price * item.quantity;
-        
-        const product = sweetsData.find(p => p.id === item.id);
-        // Fallback check: customized boxes don't use inventory stock validation limits
-        const reachMaxStock = product ? (item.quantity >= product.stock) : false;
+        function addToCart(productId) {
+            const product = sweetsData.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            const currentQty = existingItem ? existingItem.quantity : 0;
+            
+            if (currentQty >= product.stock) {
+                alert("Sorry, no more stock available for this sweet item!");
+                return;
+            }
 
-        const itemRow = document.createElement('div');
-        itemRow.className = 'cart-item';
-        itemRow.innerHTML = `
-            <img src="${item.img}" class="cart-item-img">
-            <div class="cart-item-details">
-                <h4>${item.name}</h4>
-                <p style="color:var(--primary-color); font-weight:600;">$${(item.price * item.quantity).toFixed(2)}</p>
-                <div class="cart-item-qty">
-                    <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="qty-btn" ${reachMaxStock ? 'disabled' : ''} onclick="changeQuantity(${item.id}, 1)">+</button>
-                    <span class="remove-item" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></span>
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            saveCartToMemory();
+            updateCartUI();
+            renderProducts();
+            toggleCart(true);
+        }
+
+        function changeQuantity(productId, change) {
+            const product = sweetsData.find(p => p.id === productId);
+            const item = cart.find(item => item.id === productId);
+            
+            if (item) {
+                if (change > 0 && product && item.quantity >= product.stock) {
+                    alert("Cannot add more. Maximum limit reached for this item.");
+                    return;
+                }
+                
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+                saveCartToMemory();
+                updateCartUI();
+                renderProducts();
+                if(document.getElementById('checkout-modal').style.display === 'flex') {
+                    recalculateCheckoutTotals(); 
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCartToMemory();
+            updateCartUI();
+            renderProducts();
+            if(cart.length === 0) closeCheckout();
+            else recalculateCheckoutTotals();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cart-items-container');
+            const countBadge = document.getElementById('cart-count');
+            const subtotalText = document.getElementById('cart-subtotal');
+            
+            if (!container || !countBadge || !subtotalText) return;
+            container.innerHTML = "";
+            let totalCount = 0;
+            let subtotal = 0;
+
+            cart.forEach(item => {
+                totalCount += item.quantity;
+                subtotal += item.price * item.quantity;
+                
+                const product = sweetsData.find(p => p.id === item.id);
+                const reachMaxStock = product ? (item.quantity >= product.stock) : false;
+
+                const itemRow = document.createElement('div');
+                itemRow.className = 'cart-item';
+                itemRow.innerHTML = `
+                    <img src="${item.img}" class="cart-item-img">
+                    <div class="cart-item-details">
+                        <h4>${item.name}</h4>
+                        <p style="color:var(--primary-color); font-weight:600;">$${(item.price * item.quantity).toFixed(2)}</p>
+                        <div class="cart-item-qty">
+                            <button class="qty-btn" onclick="changeQuantity(${item.id}, -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button class="qty-btn" ${reachMaxStock ? 'disabled' : ''} onclick="changeQuantity(${item.id}, 1)">+</button>
+                            <span class="remove-item" onclick="removeFromCart(${item.id})"><i class="fas fa-trash"></i></span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(itemRow);
+            });
+
+            countBadge.innerText = totalCount;
+            subtotalText.innerText = `$${subtotal.toFixed(2)}`;
+            
+            if (cart.length === 0) {
+                container.innerHTML = `<p style="text-align:center; margin-top:40px; color:#aaa;">Your treat box is empty!</p>`;
+            }
+        }
+
+        function openCheckout() {
+            if (cart.length === 0) {
+                alert("Please add items to your cart before checking out.");
+                return;
+            }
+            toggleCart(false);
+            
+            document.getElementById('promo-code-input').value = "";
+            document.getElementById('promo-status').style.display = "none";
+            activeDiscountRate = 0;
+            isFreeShipping = false;
+
+            recalculateCheckoutTotals();
+            document.getElementById('checkout-modal').style.display = 'flex';
+        }
+
+        function recalculateCheckoutTotals() {
+            const summaryPane = document.getElementById('express-summary-pane');
+            if (!summaryPane) return;
+
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let discountAmount = subtotal * activeDiscountRate;
+            let deliveryFee = isFreeShipping ? 0.00 : 3.50;
+            let grandTotal = (subtotal - discountAmount) + deliveryFee;
+            if (grandTotal < 0) grandTotal = 0;
+
+            let itemsListHTML = '<div style="max-height: 100px; overflow-y: auto; margin-bottom: 10px; border-bottom: 1px solid #eef0f2; padding-bottom: 8px;">';
+            cart.forEach(item => {
+                itemsListHTML += `
+                    <div style="display:flex; justify-content:space-between; font-size:13px; color:#555; margin-bottom:4px;">
+                        <span>• ${item.name} <strong>x${item.quantity}</strong></span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+            itemsListHTML += '</div>';
+
+            const discountDisplay = activeDiscountRate > 0 ? 'flex' : 'none';
+            
+            itemsListHTML += `
+                <div class="mini-summary-row">
+                    <span>Subtotal:</span>
+                    <span>$${subtotal.toFixed(2)}</span>
                 </div>
-            </div>
-        `;
-        container.appendChild(itemRow);
-    });
+                <div class="mini-summary-row" id="discount-row" style="display: ${discountDisplay}; color: var(--success-color); font-weight:500;">
+                    <span>Discount Applied (${activeDiscountRate * 100}%):</span>
+                    <span>-$${discountAmount.toFixed(2)}</span>
+                </div>
+                <div class="mini-summary-row">
+                    <span>Delivery Fee:</span>
+                    <span>${isFreeShipping ? 'FREE' : '$' + deliveryFee.toFixed(2)}</span>
+                </div>
+                <div class="mini-summary-row" style="margin-top:8px; padding-top:8px; border-top:1px dashed #ccc; font-weight:bold; font-size:16px; color:var(--dark-color);">
+                    <span>Grand Total:</span>
+                    <span style="color:var(--primary-color);">$${grandTotal.toFixed(2)}</span>
+                </div>
+            `;
 
-    countBadge.innerText = totalCount;
-    subtotalText.innerText = `$${subtotal.toFixed(2)}`;
-    
-    if (cart.length === 0) {
-        container.innerHTML = `<p style="text-align:center; margin-top:40px; color:#aaa;">Your treat box is empty!</p>`;
-    }
-}
-
-function openCheckout() {
-    if (cart.length === 0) {
-        alert("Please add items to your cart before checking out.");
-        return;
-    }
-    toggleCart(false);
-    
-    document.getElementById('promo-code-input').value = "";
-    document.getElementById('promo-status').style.display = "none";
-    activeDiscountRate = 0;
-    isFreeShipping = false;
-
-    recalculateCheckoutTotals();
-    document.getElementById('checkout-modal').style.display = 'flex';
-}
-function recalculateCheckoutTotals() {
-    const summaryPane = document.getElementById('express-summary-pane');
-    if (!summaryPane) return;
-
-    let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    let discountAmount = subtotal * activeDiscountRate;
-    let deliveryFee = isFreeShipping ? 0.00 : 3.50;
-    let grandTotal = (subtotal - discountAmount) + deliveryFee;
-    if (grandTotal < 0) grandTotal = 0;
-
-    // Build a clean, simplified list of items inside the summary box
-    let itemsListHTML = '<div style="max-height: 100px; overflow-y: auto; margin-bottom: 10px; border-bottom: 1px solid #eef0f2; padding-bottom: 8px;">';
-    cart.forEach(item => {
-        itemsListHTML += `
-            <div style="display:flex; justify-content:space-between; font-size:13px; color:#555; margin-bottom:4px;">
-                <span>• ${item.name} <strong>x${item.quantity}</strong></span>
-                <span>$${(item.price * item.quantity).toFixed(2)}</span>
-            </div>
-        `;
-    });
-    itemsListHTML += '</div>';
-
-    // Append math rows underneath the product list
-    const discountDisplay = activeDiscountRate > 0 ? 'flex' : 'none';
-    
-    itemsListHTML += `
-        <div class="mini-summary-row">
-            <span>Subtotal:</span>
-            <span>$${subtotal.toFixed(2)}</span>
-        </div>
-        <div class="mini-summary-row" id="discount-row" style="display: ${discountDisplay}; color: var(--success-color); font-weight:500;">
-            <span>Discount Applied (${activeDiscountRate * 100}%):</span>
-            <span>-$${discountAmount.toFixed(2)}</span>
-        </div>
-        <div class="mini-summary-row">
-            <span>Delivery Fee:</span>
-            <span>${isFreeShipping ? 'FREE' : '$' + deliveryFee.toFixed(2)}</span>
-        </div>
-        <div class="mini-summary-row" style="margin-top:8px; padding-top:8px; border-top:1px dashed #ccc; font-weight:bold; font-size:16px; color:var(--dark-color);">
-            <span>Grand Total:</span>
-            <span style="color:var(--primary-color);">$${grandTotal.toFixed(2)}</span>
-        </div>
-    `;
-
-    summaryPane.innerHTML = itemsListHTML;
-}
-
-function applyPromoCode() {
-    const codeInput = document.getElementById('promo-code-input').value.trim().toUpperCase();
-    const statusText = document.getElementById('promo-status');
-    if (!statusText) return;
-    
-    statusText.style.display = "block";
-    
-    if (codeInput === "SWEET20") {
-        activeDiscountRate = 0.20;
-        isFreeShipping = false; 
-        statusText.innerText = "🎉 Promo Applied: 20% Off Sweet Items!";
-        statusText.style.color = "var(--success-color)";
-    } else if (codeInput === "FREESHIP") {
-        activeDiscountRate = 0; 
-        isFreeShipping = true;
-        statusText.innerText = "🚚 Promo Applied: Free Premium Delivery!";
-        statusText.style.color = "var(--success-color)";
-    } else if (codeInput === "") {
-        statusText.innerText = "Please enter a code.";
-        statusText.style.color = "var(--dark-color)";
-        return;
-    } else {
-        activeDiscountRate = 0;
-        isFreeShipping = false;
-        statusText.innerText = "❌ Invalid Promo Code. Try SWEET20 or FREESHIP.";
-        statusText.style.color = "red";
-    }
-    
-    recalculateCheckoutTotals();
-}
-
-function closeCheckout() {
-    document.getElementById('checkout-modal').style.display = 'none';
-}
-
-function submitOrder(event) {
-    event.preventDefault();
-    
-    let stockError = false;
-    cart.forEach(item => {
-        const product = sweetsData.find(p => p.id === item.id);
-        if (product && item.quantity > product.stock) {
-            stockError = true;
-            alert(`Oops! Demand is high and ${item.name} just ran out of adequate stock.`);
+            summaryPane.innerHTML = itemsListHTML;
         }
-    });
 
-    if (stockError) {
-        updateCartUI();
-        renderProducts();
-        return;
-    }
-
-    cart.forEach(item => {
-        const product = sweetsData.find(p => p.id === item.id);
-        if(product) {
-            product.stock -= item.quantity;
+        function applyPromoCode() {
+            const codeInput = document.getElementById('promo-code-input').value.trim().toUpperCase();
+            const statusText = document.getElementById('promo-status');
+            if (!statusText) return;
+            
+            statusText.style.display = "block";
+            
+            if (codeInput === "SWEET20") {
+                activeDiscountRate = 0.20;
+                isFreeShipping = false; 
+                statusText.innerText = "🎉 Promo Applied: 20% Off Sweet Items!";
+                statusText.style.color = "var(--success-color)";
+            } else if (codeInput === "FREESHIP") {
+                activeDiscountRate = 0; 
+                isFreeShipping = true;
+                statusText.innerText = "🚚 Promo Applied: Free Premium Delivery!";
+                statusText.style.color = "var(--success-color)";
+            } else if (codeInput === "") {
+                statusText.innerText = "Please enter a code.";
+                statusText.style.color = "var(--dark-color)";
+                return;
+            } else {
+                activeDiscountRate = 0;
+                isFreeShipping = false;
+                statusText.innerText = "❌ Invalid Promo Code. Try SWEET20 or FREESHIP.";
+                statusText.style.color = "red";
+            }
+            
+            recalculateCheckoutTotals();
         }
-    });
 
-    closeCheckout(); 
-    launchLiveOrderTracker(); 
-    
-    cart = [];
-    saveCartToMemory();
-    activeDiscountRate = 0;
-    isFreeShipping = false;
-    updateCartUI();
-    renderProducts();
-    document.getElementById('order-form').reset();
-}
+        function closeCheckout() {
+            document.getElementById('checkout-modal').style.display = 'none';
+        }
 
-function launchLiveOrderTracker() {
-    const randomOrderId = Math.floor(100000 + Math.random() * 900000);
-    document.getElementById('trackerOrderId').innerText = '#SB-' + randomOrderId;
-    
-    document.getElementById('orderTrackerModal').style.display = 'flex';
-    resetTrackerUI();
+        function submitOrder(event) {
+            event.preventDefault();
+            
+            let stockError = false;
+            cart.forEach(item => {
+                const product = sweetsData.find(p => p.id === item.id);
+                if (product && item.quantity > product.stock) {
+                    stockError = true;
+                    alert(`Oops! Demand is high and ${item.name} just ran out of adequate stock.`);
+                }
+            });
 
-    setTimeout(() => {
-        updateTrackerStep(2, '#ff477e', '✓', 'Preparing...', 'Chef is packing your premium sweets freshly!');
-    }, 4000);
+            if (stockError) {
+                updateCartUI();
+                renderProducts();
+                return;
+            }
 
-    setTimeout(() => {
-        updateTrackerStep(3, '#ff477e', '✓', 'Dispatched', 'Out for delivery! Your driver is heading your way.');
-        document.getElementById('trackerLine').style.background = '#ff477e';
-    }, 8000);
-}
+            cart.forEach(item => {
+                const product = sweetsData.find(p => p.id === item.id);
+                if(product) {
+                    product.stock -= item.quantity;
+                }
+            });
 
-function updateTrackerStep(stepNum, activeColor, symbol, titleText, messageText) {
-    const circle = document.getElementById('stepCircle' + stepNum);
-    const label = document.getElementById('stepText' + stepNum);
-    const msgBox = document.getElementById('trackerStatusMessage');
-    
-    if(circle && label) {
-        circle.style.background = activeColor;
-        circle.style.color = 'white';
-        circle.innerHTML = symbol;
-        label.style.color = '#333';
-        msgBox.innerText = messageText;
-    }
-}
+            closeCheckout(); 
+            launchLiveOrderTracker(); 
+            
+            cart = [];
+            saveCartToMemory();
+            activeDiscountRate = 0;
+            isFreeShipping = false;
+            updateCartUI();
+            renderProducts();
+            document.getElementById('order-form').reset();
+        }
 
-function resetTrackerUI() {
-    document.getElementById('trackerLine').style.background = '#e0e0e0';
-    updateTrackerStep(2, '#e0e0e0', '2', 'Preparing', 'We have received your order! Preparing soon...');
-    updateTrackerStep(3, '#e0e0e0', '3', 'Dispatched', 'We have received your order! Preparing soon...');
-    document.getElementById('stepText2').style.color = '#666';
-    document.getElementById('stepText3').style.color = '#666';
-}
+        function launchLiveOrderTracker() {
+            const randomOrderId = Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('trackerOrderId').innerText = '#SB-' + randomOrderId;
+            
+            document.getElementById('orderTrackerModal').style.display = 'flex';
+            resetTrackerUI();
 
-function closeTrackerModal() {
-    document.getElementById('orderTrackerModal').style.display = 'none';
-}
-// Function to handle the user profile interaction event
-function openProfileDashboard() {
-    alert("👤 Welcome back! Sweet rewards account profile details, purchase history, and discount tier tracking features are coming soon.");
-}
-</script>
+            setTimeout(() => {
+                updateTrackerStep(2, '#ff477e', '✓', 'Preparing...', 'Chef is packing your premium sweets freshly!');
+            }, 4000);
+
+            setTimeout(() => {
+                updateTrackerStep(3, '#ff477e', '✓', 'Dispatched', 'Out for delivery! Your driver is heading your way.');
+                document.getElementById('trackerLine').style.background = '#ff477e';
+            }, 8000);
+        }
+
+        function updateTrackerStep(stepNum, activeColor, symbol, titleText, messageText) {
+            const circle = document.getElementById('stepCircle' + stepNum);
+            const label = document.getElementById('stepText' + stepNum);
+            const msgBox = document.getElementById('trackerStatusMessage');
+            
+            if(circle && label) {
+                circle.style.background = activeColor;
+                circle.style.color = 'white';
+                circle.innerHTML = symbol;
+                label.style.color = '#333';
+                msgBox.innerText = messageText;
+            }
+        }
+
+        function resetTrackerUI() {
+            document.getElementById('trackerLine').style.background = '#e0e0e0';
+            updateTrackerStep(2, '#e0e0e0', '2', 'Preparing', 'We have received your order! Preparing soon...');
+            updateTrackerStep(3, '#e0e0e0', '3', 'Dispatched', 'We have received your order! Preparing soon...');
+            document.getElementById('stepText2').style.color = '#666';
+            document.getElementById('stepText3').style.color = '#666';
+        }
+
+        function closeTrackerModal() {
+            document.getElementById('orderTrackerModal').style.display = 'none';
+        }
+
+        function openProfileDashboard() {
+            alert("👤 Welcome back! Sweet rewards account profile details, purchase history, and discount tier tracking features are coming soon.");
+        }
+    </script>
 </body>
 </html>
