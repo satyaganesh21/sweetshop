@@ -143,7 +143,7 @@
         .product-price { font-size: 20px; color: var(--primary-color); font-weight: 700; margin-bottom: 15px; }
         
         .add-to-cart {
-            background-color: var(--secondary-color); color: var(--white); border: none;
+            background-color: var(--secondary-color); color: var(--dark-color); border: none;
             padding: 10px; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;
         }
         .add-to-cart:hover { background-color: #e1a624; }
@@ -210,7 +210,7 @@
         .promo-btn { background: var(--dark-color); color: white; border: none; padding: 0 15px; border-radius: 6px; font-weight: 600; cursor: pointer; }
         .promo-message { font-size: 12px; margin-top: 4px; display: none; }
 
-       /* --- High-End Unique Glassmorphism Bento Portal --- */
+        /* --- High-End Unique Glassmorphism Bento Portal --- */
         .profile-page-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(135deg, #20100B 0%, #4A0016 100%); 
@@ -231,13 +231,11 @@
             box-shadow: 0 0 15px rgba(255, 115, 0, 0.4); transform: translateY(-2px);
         }
 
-        /* Bento Grid Wrapper */
         .profile-bento-grid {
             max-width: 1200px; margin: 60px auto 0;
             display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;
         }
 
-        /* The Unique Glass Bento Box Base */
         .bento-box {
             background: rgba(255, 251, 244, 0.06);
             backdrop-filter: blur(16px) saturate(120%);
@@ -252,13 +250,11 @@
             box-shadow: 0 12px 40px rgba(255, 115, 0, 0.15);
         }
 
-        /* Grid Spans for the Bento Aesthetics */
         .bento-profile-hero { grid-column: span 2; display: flex; align-items: center; gap: 30px; }
         .bento-rewards { grid-column: span 1; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .bento-address { grid-column: span 1; }
         .bento-orders { grid-column: span 2; }
 
-        /* Unique Components inside Bento */
         .bento-avatar {
             width: 110px; height: 110px; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -267,22 +263,19 @@
         .bento-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 5px; color: #FFFBF4; }
         
         .huge-points { font-size: 48px; font-weight: 700; color: var(--secondary-color); text-shadow: 0 0 10px rgba(255, 115, 0, 0.3); line-height: 1; margin: 10px 0; }
-        
         .bento-label { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: #FF7300; font-weight: 700; margin-bottom: 15px; }
         
         .address-item { margin-bottom: 12px; font-size: 14px; color: #EADCC2; line-height: 1.6; }
         .address-item strong { color: #FFFBF4; display: block; font-size: 12px; text-transform: uppercase; opacity: 0.6; }
 
-        /* Custom Order Items */
         .portal-history-item {
             background: rgba(255, 251, 244, 0.04); border: 1px solid rgba(255, 251, 244, 0.08);
             border-radius: 14px; padding: 18px; margin-bottom: 15px; transition: all 0.3s;
         }
         .portal-history-item:hover {
-            background: rgba(255, 251, 244, 0.08); transform: scale(1.01);
+            background: rgba(255, 251, 244, 0.08); transform: scale(1.01); border-color: var(--secondary-color);
         }
 
-        /* Responsive */
         @media (max-width: 992px) {
             .profile-bento-grid { grid-template-columns: 1fr; }
             .bento-profile-hero, .bento-rewards, .bento-address, .bento-orders { grid-column: span 1; }
@@ -346,7 +339,6 @@
         </div>
     </div>
 
-<!-- Unique Full-Screen Bento Grid Account Portal -->
     <div class="profile-page-overlay" id="profile-drawer">
         <div class="portal-back-btn" onclick="toggleProfile(false)">
             <i class="fas fa-arrow-left"></i> Return To Gallery
@@ -354,7 +346,6 @@
 
         <div class="profile-bento-grid">
             
-            <!-- BOX 1: Profile Hero Card -->
             <div class="bento-box bento-profile-hero">
                 <div class="bento-avatar">G</div>
                 <div>
@@ -365,14 +356,12 @@
                 </div>
             </div>
 
-            <!-- BOX 2: Elite Rewards Multiplier -->
             <div class="bento-box bento-rewards">
                 <div class="bento-label"><i class="fas fa-crown"></i> Member Tier</div>
                 <div class="huge-points">120</div>
                 <p style="font-size: 14px; color: #FFFBF4; font-weight: 600;">Gold Tier Sweet Points</p>
             </div>
 
-            <!-- BOX 3: Delivery Profile Records -->
             <div class="bento-box bento-address">
                 <div class="bento-label"><i class="fas fa-truck"></i> Shipping Registry</div>
                 <div class="address-item">
@@ -386,7 +375,6 @@
                 </div>
             </div>
 
-            <!-- BOX 4: Simulated Activity & Tracker Logs -->
             <div class="bento-box bento-orders">
                 <div class="bento-label"><i class="fas fa-history"></i> Session Pipeline Logs</div>
                 <div id="dashboard-history-pane">
@@ -576,20 +564,21 @@
             }
         }
 
-   function toggleProfile(open) {
-    const drawer = document.getElementById('profile-drawer');
-    if (!drawer) return;
-    if (open) {
-        drawer.style.display = 'block'; // Unveils the full-screen layout!
-        toggleCart(false);               // Closes out the shopping cart layout
-    } else {
-        drawer.style.display = 'none';  // Hides the full-screen portal view safely
-    }
-}
+        function toggleProfile(open) {
+            const drawer = document.getElementById('profile-drawer');
+            if (!drawer) return;
+            if (open) {
+                drawer.style.display = 'block';
+                toggleCart(false);
+            } else {
+                drawer.style.display = 'none';
+            }
+        }
 
-function openProfileDashboard() {
-    toggleProfile(true);
-}
+        function openProfileDashboard() {
+            toggleProfile(true);
+        }
+
         function addToCart(productId) {
             const product = sweetsData.find(p => p.id === productId);
             const existingItem = cart.find(item => item.id === productId);
@@ -805,7 +794,6 @@ function openProfileDashboard() {
                 }
             });
 
-            // Fire tracker modal first to read generated text ID reference context safely
             launchLiveOrderTracker(); 
             closeCheckout(); 
             
@@ -825,18 +813,18 @@ function openProfileDashboard() {
             const historyPane = document.getElementById('dashboard-history-pane');
             if (!historyPane) return;
 
-            if (historyPane.innerHTML.includes("No past orders found")) {
+            if (historyPane.innerHTML.includes("No past confectionery orders managed")) {
                 historyPane.innerHTML = "";
             }
 
             const newLogItem = document.createElement('div');
-            newLogItem.className = 'history-item';
+            newLogItem.className = 'portal-history-item';
             newLogItem.innerHTML = `
                 <div style="display:flex; justify-content:space-between; font-weight:600; margin-bottom:4px;">
-                    <span style="color: var(--primary-color);">${orderNumber}</span>
-                    <span style="background:var(--success-color); color:white; font-size:10px; padding:1px 6px; border-radius:10px;">Processed</span>
+                    <span style="color: var(--secondary-color); font-weight: 700;">${orderNumber}</span>
+                    <span style="background:var(--success-color); color:white; font-size:10px; padding:2px 8px; border-radius:12px; font-weight:bold;">PROCESSED</span>
                 </div>
-                <div style="color:#555; font-size:12px;">Simulated Sweet Order Placement Successfully Managed</div>
+                <div style="color:#EADCC2; font-size:13px; margin-top:4px;">Simulated Sweet Order Placement Successfully Managed</div>
             `;
             historyPane.insertBefore(newLogItem, historyPane.firstChild);
         }
