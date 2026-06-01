@@ -126,7 +126,7 @@
         }
         .cat-btn.active, .cat-btn:hover { background-color: var(--primary-color); color: var(--white); box-shadow: 0 4px 10px rgba(122, 0, 38, 0.2); }
 
-        /* --- Products Grid --- */
+        /* --- Products Grid & Sub-Features --- */
         .products-container {
             max-width: 1200px; margin: 0 auto; padding: 0 20px 60px;
             display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
@@ -139,8 +139,14 @@
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(122, 0, 38, 0.08); }
         .product-img { width: 100%; height: 200px; object-fit: cover; }
         .product-info { padding: 20px; text-align: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
-        .product-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; color: var(--dark-color); }
-        .product-stock { font-size: 12px; color: #7A6B66; margin-bottom: 10px; }
+        .product-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; color: var(--dark-color); }
+        .product-stock { font-size: 12px; color: #7A6B66; margin-bottom: 4px; }
+        .product-weight-tag { font-size: 12px; font-weight: 600; color: var(--secondary-color); margin-bottom: 6px; background: #FFF0D4; display: inline-block; padding: 2px 10px; border-radius: 12px; }
+        
+        /* Interactive Review Styling */
+        .product-rating { display: flex; justify-content: center; align-items: center; gap: 4px; margin-bottom: 8px; font-size: 13px; color: #FFB100; }
+        .rating-count { color: #8A7B76; font-size: 12px; margin-left: 4px; }
+
         .product-price { font-size: 20px; color: var(--primary-color); font-weight: 700; margin-bottom: 15px; }
         
         .add-to-cart {
@@ -239,7 +245,7 @@
             border: 4px solid #ffffff; box-shadow: 0 6px 16px rgba(0,0,0,0.06);
         }
         
-        /* Verification Progress Area */
+        /* Verification & Dynamic Reward Points Progress Area */
         .app-meta-box {
             background: #ffffff; border-radius: 20px; padding: 20px; text-align: left;
             box-shadow: 0 4px 14px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.01);
@@ -250,7 +256,7 @@
         .app-progress-pct { font-size: 13px; font-weight: 700; color: var(--success-color); background: #EAF5EA; padding: 2px 8px; border-radius: 8px; }
         
         .app-progress-bar-bg { width: 100%; height: 6px; background: #E5ECE5; border-radius: 10px; overflow: hidden; }
-        .app-progress-bar-fill { width: 85%; height: 100%; background: #151B15; border-radius: 10px; }
+        .app-progress-bar-fill { width: 40%; height: 100%; background: #151B15; border-radius: 10px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
         /* Rounded Rounded List Group Stack */
         .app-section-heading { font-size: 13px; font-weight: 600; color: #7C8B7C; text-transform: uppercase; letter-spacing: 0.5px; margin: 25px 0 10px 5px; }
@@ -284,7 +290,7 @@
         /* Custom Order Logs inside List Format */
         .app-order-log-card {
             background: #ffffff; border-radius: 16px; padding: 15px; margin-bottom: 10px;
-            border: 1px solid rgba(0,0,0,0.01); display: flex; justify-content: space-between; align-items: center;
+            border: 1px solid rgba(0,0,0,0.01); display: flex; justify-content: space-between; align-items: center; width: 100%;
         }
 
         /* --- Footer Styles --- */
@@ -308,6 +314,7 @@
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header>
         <nav class="navbar">
             <a href="#" class="logo">Sugar<span>Bliss</span></a>
@@ -328,6 +335,7 @@
         </nav>
     </header>
 
+    <!-- Banner -->
     <section class="hero">
         <div class="hero-slider-bg"></div>
         <div class="hero-content-wrapper">
@@ -336,6 +344,7 @@
         </div>
     </section>
 
+    <!-- Main Grid Content Section -->
     <section>
         <h2 class="section-title">Explore Our Treats</h2>
         <div class="categories">
@@ -347,6 +356,7 @@
         <div class="products-container" id="products-grid"></div>
     </section>
 
+    <!-- Sliding Shopping Cart Drawer Container -->
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
             <h3>Your Sweet Box</h3>
@@ -362,15 +372,18 @@
         </div>
     </div>
 
+    <!-- MODERN PHONE OVERLAY ADAPTED FROM IMAGE 66baa0dc5bbe0bfbc1e4ebf6affef7be.webp -->
     <div class="profile-page-overlay" id="profile-drawer">
         <div class="app-frame-container">
             
+            <!-- Top Controls bar -->
             <div class="app-top-bar">
                 <div class="app-circle-btn" onclick="toggleProfile(false)"><i class="fas fa-chevron-left"></i></div>
                 <div class="app-page-title">Profile</div>
                 <div class="app-circle-btn"><i class="fas fa-cog"></i></div>
             </div>
 
+            <!-- Avatar & Progress Box -->
             <div class="app-profile-card">
                 <div class="app-avatar-wrapper">
                     <div class="app-avatar-img" style="background:#E5ECE5; display:flex; align-items:center; justify-content:center; color:#7C8B7C; font-size:36px; font-weight:bold;">G</div>
@@ -378,16 +391,17 @@
                 
                 <div class="app-meta-box">
                     <div class="app-meta-header">
-                        <div class="app-user-name">Ganish</div>
-                        <div class="app-progress-pct">85%</div>
+                        <div class="app-user-name" id="appUserPointsLabel">40 Points</div>
+                        <div class="app-progress-pct" id="appUserTierText">Bronze Tier</div>
                     </div>
-                    <div class="app-progress-label" style="margin-bottom:8px;">Identity verification completed</div>
+                    <div class="app-progress-label" style="margin-bottom:8px;">Profile Rewards Increment Pipeline</div>
                     <div class="app-progress-bar-bg">
-                        <div class="app-progress-bar-fill"></div>
+                        <div class="app-progress-bar-fill" id="appUserProfileProgressBar"></div>
                     </div>
                 </div>
             </div>
 
+            <!-- Account Settings Data Stack list items styled exactly like image -->
             <div class="app-section-heading">Account settings</div>
             <div class="app-list-stack">
                 
@@ -426,11 +440,13 @@
 
             </div>
 
+            <!-- Dynamic Confectionery Session History Stack list group area -->
             <div class="app-section-heading">Session History</div>
             <div class="app-list-stack" id="dashboard-history-pane">
                 <p style="text-align: center; color: #7C8B7C; padding: 25px; font-size: 13px; font-style: italic;">No past orders found in this session.</p>
             </div>
 
+            <!-- Sleek Bottom Action Nav Dock matching image theme layout link nodes -->
             <div class="app-nav-dock">
                 <div class="dock-item" onclick="toggleProfile(false)"><i class="fas fa-home"></i></div>
                 <div class="dock-item"><i class="fas fa-th-large"></i></div>
@@ -441,6 +457,7 @@
         </div>
     </div>
 
+    <!-- Unified Single-Card Express Checkout Screen -->
     <div class="modal-overlay" id="checkout-modal">
         <div class="express-checkout-card">
             <i class="fas fa-times close-express" onclick="closeCheckout()"></i>
@@ -494,6 +511,7 @@
         </div>
     </div>
 
+    <!-- Live Order Tracker Modal Container -->
     <div id="orderTrackerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(32,16,11,0.5); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
         <div style="background: var(--white); padding: 30px; border-radius: 15px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 12px 30px rgba(32,16,11,0.25); border: 1px solid #EADCC2;">
             
@@ -527,6 +545,7 @@
         </div>
     </div>
 
+    <!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <h3>SugarBliss Confectionery</h3>
@@ -543,12 +562,12 @@
 
     <script>
         const sweetsData = [
-            { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
-            { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
-            { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
-            { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
-            { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
-            { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" }
+            { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", weight: "500g Box", rating: 5, reviews: 142, stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+            { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", weight: "750g Hamper", rating: 4, reviews: 98, stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+            { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", weight: "6 Item Pack", rating: 5, reviews: 210, stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+            { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", weight: "1kg Tin Box", rating: 4, reviews: 84, stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+            { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", weight: "400g Tray", rating: 5, reviews: 67, stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+            { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", weight: "3 Item Pack", rating: 4, reviews: 115, stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" }
         ];
 
         let cart = [];
@@ -556,6 +575,7 @@
         let searchQuery = '';
         let activeDiscountRate = 0; 
         let isFreeShipping = false;
+        let userPointsTotal = 40;
 
         window.onload = () => {
             const savedCart = localStorage.getItem('sugarbliss_cart');
@@ -564,6 +584,7 @@
                 updateCartUI();
             }
             renderProducts();
+            refreshPointsProgressUI();
         };
 
         function saveCartToMemory() {
@@ -595,12 +616,19 @@
                 const buttonText = isOutOfStock ? "Out of Stock" : "Add to Cart";
                 const stockText = sweet.stock === 0 ? "Unavailable" : `Stock: ${availableStock} left`;
 
+                let starsHTML = "";
+                for(let i=1; i<=5; i++) {
+                    starsHTML += `<i class="${i <= sweet.rating ? 'fas' : 'far'} fa-star"></i>`;
+                }
+
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
                     <img src="${sweet.img}" alt="${sweet.name}" class="product-img">
                     <div class="product-info">
                         <h3 class="product-title">${sweet.name}</h3>
+                        <div class="product-rating">${starsHTML}<span class="rating-count">(${sweet.reviews})</span></div>
+                        <p style="margin-bottom:6px;"><span class="product-weight-tag">${sweet.weight}</span></p>
                         <p class="product-stock">${stockText}</p>
                         <p class="product-price">$${sweet.price.toFixed(2)}</p>
                         <button class="add-to-cart" ${isOutOfStock ? 'disabled' : ''} onclick="addToCart(${sweet.id})">${buttonText}</button>
@@ -862,11 +890,16 @@
                 }
             });
 
-            launchLiveOrderTracker(); 
+            // Generate order ID safely first so it exists in memory right away
+            const randomOrderId = Math.floor(100000 + Math.random() * 900000);
+            const completeOrderStr = '#SB-' + randomOrderId;
+
+            launchLiveOrderTracker(completeOrderStr); 
             closeCheckout(); 
+            appendOrderToDashboardHistory(completeOrderStr);
             
-            const orderNum = document.getElementById('trackerOrderId').innerText;
-            appendOrderToDashboardHistory(orderNum);
+            userPointsTotal += 20; 
+            refreshPointsProgressUI();
             
             cart = [];
             saveCartToMemory();
@@ -900,10 +933,35 @@
             historyPane.insertBefore(newLogItem, historyPane.firstChild);
         }
 
-        function launchLiveOrderTracker() {
-            const randomOrderId = Math.floor(100000 + Math.random() * 900000);
-            document.getElementById('trackerOrderId').innerText = '#SB-' + randomOrderId;
+        function refreshPointsProgressUI() {
+            const label = document.getElementById('appUserPointsLabel');
+            const tierText = document.getElementById('appUserTierText');
+            const filledBar = document.getElementById('appUserProfileProgressBar');
             
+            if(!label || !tierText || !filledBar) return;
+            
+            label.innerText = `${userPointsTotal} Points`;
+            
+            let maxCapacity = 200;
+            if (userPointsTotal < 100) {
+                tierText.innerText = "Bronze Member";
+                maxCapacity = 100;
+            } else if (userPointsTotal >= 100 && userPointsTotal < 200) {
+                tierText.innerText = "Silver Elite";
+                maxCapacity = 200;
+            } else {
+                tierText.innerText = "Gold VIP Premium";
+                maxCapacity = 500;
+            }
+
+            let percentageRatio = (userPointsTotal / maxCapacity) * 100;
+            if(percentageRatio > 100) percentageRatio = 100;
+            
+            filledBar.style.width = `${percentageRatio}%`;
+        }
+
+        function launchLiveOrderTracker(generatedIdStr) {
+            document.getElementById('trackerOrderId').innerText = generatedIdStr;
             document.getElementById('orderTrackerModal').style.display = 'flex';
             resetTrackerUI();
 
