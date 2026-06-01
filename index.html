@@ -260,6 +260,46 @@
             .search-container { width: 100%; }
             .cart-drawer { width: 100%; right: -100%; }
         }
+        /* --- Smooth Profile Dashboard Drawer --- */
+        .profile-drawer {
+            position: fixed; top: 0; left: -400px; width: 400px; height: 100%;
+            background-color: var(--white); box-shadow: 5px 0 20px rgba(32,16,11,0.1);
+            z-index: 1000; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column; border-right: 1px solid #EADCC2;
+            color: var(--dark-color);
+        }
+        .profile-drawer.open { left: 0; }
+        .profile-header { padding: 20px; border-bottom: 1px solid #EADCC2; display: flex; justify-content: space-between; align-items: center; }
+        .close-profile { font-size: 24px; cursor: pointer; color: #A0908A; }
+        .close-profile:hover { color: var(--primary-color); }
+        
+        /* Dashboard Content Cards */
+        .profile-body { padding: 20px; flex-grow: 1; overflow-y: auto; }
+        .user-card {
+            background: var(--gray-light); border: 1px solid #EADCC2; border-radius: 12px;
+            padding: 15px; text-align: center; margin-bottom: 20px;
+        }
+        .user-avatar {
+            width: 70px; height: 70px; background: var(--primary-color); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 28px; margin: 0 auto 10px; font-weight: bold;
+        }
+        .rewards-badge {
+            display: inline-block; background: #FFF0D4; border: 1px solid #FF7300;
+            color: #20100B; font-size: 13px; font-weight: 600; padding: 4px 12px;
+            border-radius: 20px; margin-top: 8px;
+        }
+        .dashboard-section-title { font-size: 15px; font-weight: 600; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; color: #7A6B66; }
+        
+        .history-item {
+            background: #ffffff; border: 1px solid #EADCC2; border-radius: 8px;
+            padding: 12px; margin-bottom: 10px; font-size: 13px;
+        }
+
+        /* Mobile Responsive adjustment */
+        @media (max-width: 600px) {
+            .profile-drawer { width: 100%; left: -100%; }
+        }
     </style>
 </head>
 <body>
@@ -324,7 +364,30 @@
             <button class="checkout-btn" onclick="openCheckout()">Proceed to Checkout</button>
         </div>
     </div>
+<!-- Sliding Profile Dashboard Drawer -->
+    <div class="profile-drawer" id="profile-drawer">
+        <div class="profile-header">
+            <h3>Account Dashboard</h3>
+            <i class="fas fa-times close-profile" onclick="toggleProfile(false)"></i>
+        </div>
+        <div class="profile-body">
+            <!-- User Core Card -->
+            <div class="user-card">
+                <div class="user-avatar">G</div>
+                <h4 style="font-size: 18px; margin-bottom: 2px;">Guest User</h4>
+                <p style="font-size: 13px; color: #7A6B66;">Bhimavaram, AP</p>
+                <div class="rewards-badge">
+                    <i class="fas fa-crown" style="color: #FF7300; margin-right: 4px;"></i> 120 Sweet Points
+                </div>
+            </div>
 
+            <!-- Simulation History Tracker Logs -->
+            <div class="dashboard-section-title">Order History</div>
+            <div id="dashboard-history-pane">
+                <p style="text-align: center; color: #A0908A; padding: 20px; font-size: 13px;">No past orders found in this session.</p>
+            </div>
+        </div>
+    </div>
     <!-- Unified Single-Card Express Checkout Screen -->
     <div class="modal-overlay" id="checkout-modal">
         <div class="express-checkout-card">
@@ -748,6 +811,8 @@
 
             closeCheckout(); 
             launchLiveOrderTracker(); 
+            const orderNum = document.getElementById('trackerOrderId').innerText;
+            appendOrderToDashboardHistory(orderNum);
             
             cart = [];
             saveCartToMemory();
@@ -757,6 +822,27 @@
             renderProducts();
             document.getElementById('order-form').reset();
         }
+
+        function appendOrderToDashboardHistory(orderNumber) {
+    const historyPane = document.getElementById('dashboard-history-pane');
+    if (!historyPane) return;
+
+    // Remove empty placeholder text if it's the first order logged in this session
+    if (historyPane.innerHTML.includes("No past orders found")) {
+        historyPane.innerHTML = "";
+    }
+
+    const newLogItem = document.createElement('div');
+    newLogItem.className = 'history-item';
+    newLogItem.innerHTML = `
+        <div style="display:flex; justify-content:space-between; font-weight:600; margin-bottom:4px;">
+            <span style="color: var(--primary-color);">${orderNumber}</span>
+            <span style="background:#1B8A5A; color:white; font-size:10px; padding:1px 6px; border-radius:10px;">Processed</span>
+        </div>
+        <div style="color:#555; font-size:12px;">Simulated Sweet Order Placement Successfully Managed</div>
+    `;
+    historyPane.insertBefore(newLogItem, historyPane.firstChild);
+}
 
         function launchLiveOrderTracker() {
             const randomOrderId = Math.floor(100000 + Math.random() * 900000);
@@ -801,9 +887,21 @@
             document.getElementById('orderTrackerModal').style.display = 'none';
         }
 
-        function openProfileDashboard() {
-            alert("👤 Welcome back! Sweet rewards account profile details, purchase history, and discount tier tracking features are coming soon.");
-        }
+      function toggleProfile(open) {
+    const drawer = document.getElementById('profile-drawer');
+    if (!drawer) return;
+    if (open) {
+        drawer.classList.add('open');
+        toggleCart(false); // Clean overlay safety override
+    } else {
+        drawer.classList.remove('open');
+    }
+}
+
+// Intercept the navbar click to open the clean drawer panel
+function openProfileDashboard() {
+    toggleProfile(true);
+}
     </script>
 </body>
 </html>
