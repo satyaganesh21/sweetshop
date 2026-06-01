@@ -105,26 +105,6 @@
                                   url('https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=1200&q=80');
             }
         }
-        @keyframes sweetSlidingText {
-            0%, 28% { transform: translateX(0); opacity: 1; }
-            30% { transform: translateX(-50px); opacity: 0; }
-            31% { transform: translateX(50px); opacity: 0; }
-            33%, 61% { transform: translateX(0); opacity: 1; }
-            63% { transform: translateX(-50px); opacity: 0; }
-            64% { transform: translateX(50px); opacity: 0; }
-            66%, 95% { transform: translateX(0); opacity: 1; }
-            98% { transform: translateX(-50px); opacity: 0; }
-            99% { transform: translateX(50px); opacity: 0; }
-        }
-
-        /* --- Filter Categories --- */
-        .section-title { text-align: center; margin: 40px 0 25px; font-family: 'Playfair Display', serif; font-size: 32px; color: var(--dark-color); }
-        .categories { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
-        .cat-btn {
-            padding: 8px 22px; border: 2px solid var(--primary-color); background: transparent;
-            color: var(--primary-color); border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.3s;
-        }
-        .cat-btn.active, .cat-btn:hover { background-color: var(--primary-color); color: var(--white); box-shadow: 0 4px 10px rgba(122, 0, 38, 0.2); }
 
         /* --- Products Grid --- */
         .products-container {
@@ -137,7 +117,14 @@
             border: 1px solid #EADCC2;
         }
         .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(122, 0, 38, 0.08); }
-        .product-img { width: 100%; height: 200px; object-fit: cover; }
+        
+        /* MULTI-IMAGE CAROUSEL FRAME ACCENTS */
+        .product-img-wrapper { width: 100%; height: 200px; position: relative; overflow: hidden; }
+        .product-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.4s ease-in-out; }
+        .product-img.alt-shot { opacity: 0; }
+        .product-card:hover .product-img.primary-shot { opacity: 0; }
+        .product-card:hover .product-img.alt-shot { opacity: 1; }
+
         .product-info { padding: 20px; text-align: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
         .product-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; color: var(--dark-color); }
         .product-stock { font-size: 12px; color: #7A6B66; margin-bottom: 4px; }
@@ -215,75 +202,95 @@
         .promo-btn { background: var(--dark-color); color: white; border: none; padding: 0 15px; border-radius: 6px; font-weight: 600; cursor: pointer; }
         .promo-message { font-size: 12px; margin-top: 4px; display: none; }
 
-        /* --- DESIGN ADAPTATION FROM MOCKUP PATTERNS --- */
+        /* --- PROFILE CONFIGURATIONS LINKED TO ACCENT PALETTES --- */
         .profile-page-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-color: var(--app-bg); z-index: 1500; display: none;
+            background-color: var(--white); z-index: 1500; display: none;
             overflow-y: auto; padding: 20px;
         }
         .app-frame-container {
-            max-width: 480px; margin: 20px auto; background: #EEF3EE;
-            border-radius: 36px; padding: 25px 20px 35px; box-shadow: 0 16px 40px rgba(0,0,0,0.08);
-            border: 1px solid rgba(0,0,0,0.03); position: relative;
+            max-width: 480px; margin: 20px auto; background: var(--gray-light);
+            border-radius: 36px; padding: 25px 20px 35px; box-shadow: 0 16px 40px rgba(32,16,11,0.08);
+            border: 1px solid #EADCC2; position: relative;
         }
         .app-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
         .app-circle-btn {
             width: 40px; height: 40px; background: #ffffff; border-radius: 50%;
-            display: flex; align-items: center; justify-content: center; color: #556055;
-            cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: transform 0.2s;
+            display: flex; align-items: center; justify-content: center; color: var(--dark-color);
+            cursor: pointer; box-shadow: 0 2px 6px rgba(32,16,11,0.04); transition: transform 0.2s;
+            border: 1px solid #EADCC2;
         }
-        .app-circle-btn:hover { transform: scale(1.05); }
-        .app-page-title { font-size: 17px; font-weight: 600; color: #1E251E; }
+        .app-circle-btn:hover { transform: scale(1.05); color: var(--primary-color); }
+        .app-page-title { font-size: 17px; font-weight: 600; color: var(--dark-color); }
 
         .app-profile-card { text-align: center; margin-bottom: 25px; position: relative; }
         .app-avatar-wrapper { position: relative; width: 110px; height: 110px; margin: 0 auto 15px; }
         .app-avatar-img {
             width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
-            border: 4px solid #ffffff; box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+            border: 4px solid #ffffff; box-shadow: 0 6px 16px rgba(32,16,11,0.06);
         }
         
         .app-meta-box {
             background: #ffffff; border-radius: 20px; padding: 20px; text-align: left;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.01);
+            box-shadow: 0 4px 14px rgba(32,16,11,0.02); border: 1px solid #EADCC2;
         }
         .app-meta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-        .app-user-name { font-size: 18px; font-weight: 700; color: #1E251E; }
-        .app-progress-label { font-size: 12px; color: #6E7B6E; font-weight: 500; }
-        .app-progress-pct { font-size: 13px; font-weight: 700; color: var(--success-color); background: #EAF5EA; padding: 2px 8px; border-radius: 8px; }
+        .app-user-name { font-size: 18px; font-weight: 700; color: var(--dark-color); }
+        .app-progress-label { font-size: 12px; color: #7A6B66; font-weight: 500; }
+        .app-progress-pct { font-size: 13px; font-weight: 700; color: var(--primary-color); background: var(--light-bg); padding: 2px 8px; border-radius: 8px; }
         
-        .app-progress-bar-bg { width: 100%; height: 6px; background: #E5ECE5; border-radius: 10px; overflow: hidden; }
-        .app-progress-bar-fill { width: 40%; height: 100%; background: #151B15; border-radius: 10px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+        .app-progress-bar-bg { width: 100%; height: 6px; background: var(--gray-light); border-radius: 10px; overflow: hidden; border: 1px solid #EADCC2; }
+        .app-progress-bar-fill { width: 40%; height: 100%; background: var(--primary-color); border-radius: 10px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
 
-        .app-section-heading { font-size: 13px; font-weight: 600; color: #7C8B7C; text-transform: uppercase; letter-spacing: 0.5px; margin: 25px 0 10px 5px; }
+        .app-section-heading { font-size: 13px; font-weight: 600; color: #7A6B66; text-transform: uppercase; letter-spacing: 0.5px; margin: 25px 0 10px 5px; }
         .app-list-stack { display: flex; flex-direction: column; gap: 10px; }
+        
+        /* INTERACTIVE VOUCHER TRADE OUTLET ACCENTS */
+        .voucher-claim-terminal {
+            background: #ffffff; border: 1px dashed var(--secondary-color); border-radius: 16px; padding: 18px; margin-bottom: 15px;
+        }
+        .claim-flex-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+        .claim-action-btn { background: var(--primary-color); color: white; border: none; padding: 6px 14px; font-size: 12px; font-weight: 600; border-radius: 8px; cursor: pointer; transition: background 0.2s; }
+        .claim-action-btn:hover { background: #56001a; }
+        .claim-action-btn:disabled { background: #ccc; cursor: not-allowed; }
+
         .app-list-item {
             background: #ffffff; border-radius: 16px; padding: 16px;
             display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.01); border: 1px solid rgba(0,0,0,0.01);
+            box-shadow: 0 2px 8px rgba(32,16,11,0.01); border: 1px solid #EADCC2;
             transition: background 0.2s, transform 0.2s; cursor: pointer;
         }
-        .app-list-item:hover { background: #FAF9F6; transform: translateY(-1px); }
+        .app-list-item:hover { background: var(--gray-light); transform: translateY(-1px); border-color: var(--secondary-color); }
         .app-list-left { display: flex; align-items: center; gap: 15px; }
-        .app-list-icon { width: 34px; height: 34px; background: #F2F5F2; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #4A554A; font-size: 14px; }
+        .app-list-icon { width: 34px; height: 34px; background: var(--gray-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-size: 14px; border: 1px solid #EADCC2; }
         
-        .app-list-text-main { font-size: 14px; font-weight: 600; color: #1E251E; }
-        .app-list-text-sub { font-size: 12px; color: #7C8B7C; margin-top: 1px; }
-        .app-list-arrow { color: #A5B2A5; font-size: 12px; }
+        .app-list-text-main { font-size: 14px; font-weight: 600; color: var(--dark-color); }
+        .app-list-text-sub { font-size: 12px; color: #7A6B66; margin-top: 1px; }
+        .app-list-arrow { color: #A0908A; font-size: 12px; }
 
         .app-nav-dock {
-            background: #1E251E; border-radius: 24px; padding: 10px 14px; margin-top: 35px;
-            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            background: var(--dark-color); border-radius: 24px; padding: 10px 14px; margin-top: 35px;
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 24px rgba(32,16,11,0.15);
         }
         .dock-item {
             width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
-            color: #A5B2A5; font-size: 16px; cursor: pointer; border-radius: 16px; transition: all 0.2s;
+            color: #A0908A; font-size: 16px; cursor: pointer; border-radius: 16px; transition: all 0.2s;
         }
         .dock-item:hover { color: #ffffff; background: rgba(255,255,255,0.05); }
-        .dock-item.active { background: #ffffff; color: #1E251E; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        .dock-item.active { background: var(--white); color: var(--dark-color); box-shadow: 0 4px 10px rgba(32,16,11,0.1); }
 
         .app-order-log-card {
             background: #ffffff; border-radius: 16px; padding: 15px; margin-bottom: 10px;
-            border: 1px solid rgba(0,0,0,0.01); display: flex; justify-content: space-between; align-items: center; width: 100%;
+            border: 1px solid #EADCC2; display: flex; justify-content: space-between; align-items: center; width: 100%; cursor: pointer; transition: border 0.2s;
+        }
+        .app-order-log-card:hover { border-color: var(--primary-color); }
+
+        /* ITEMISED RECEIPT DIALOG MODALS OVERLAYS */
+        .receipt-modal-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(32,16,11,0.5); backdrop-filter: blur(3px); display: none; justify-content: center; align-items: center; z-index: 3000; padding: 20px;
+        }
+        .receipt-sheet-paper {
+            background: white; width: 100%; max-width: 400px; border-radius: 16px; border: 1px solid #EADCC2; padding: 25px; box-shadow: 0 8px 30px rgba(0,0,0,0.15); position: relative;
         }
 
         /* --- Footer Styles --- */
@@ -307,6 +314,7 @@
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header>
         <nav class="navbar">
             <a href="#" class="logo">Sugar<span>Bliss</span></a>
@@ -327,6 +335,7 @@
         </nav>
     </header>
 
+    <!-- Banner -->
     <section class="hero">
         <div class="hero-slider-bg"></div>
         <div class="hero-content-wrapper">
@@ -335,6 +344,7 @@
         </div>
     </section>
 
+    <!-- Main Grid Content Section -->
     <section>
         <h2 class="section-title">Explore Our Treats</h2>
         <div class="categories">
@@ -346,6 +356,7 @@
         <div class="products-container" id="products-grid"></div>
     </section>
 
+    <!-- Sliding Shopping Cart Drawer Container -->
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
             <h3>Your Sweet Box</h3>
@@ -361,18 +372,19 @@
         </div>
     </div>
 
+    <!-- PHONE MOCKUP OVERLAY BACKDROP -->
     <div class="profile-page-overlay" id="profile-drawer">
         <div class="app-frame-container">
             
             <div class="app-top-bar">
                 <div class="app-circle-btn" onclick="toggleProfile(false)"><i class="fas fa-chevron-left"></i></div>
-                <div class="app-page-title">Profile</div>
+                <div class="app-page-title">Profile Hub</div>
                 <div class="app-circle-btn" onclick="clearProfileCache()"><i class="fas fa-redo-alt"></i></div>
             </div>
 
             <div class="app-profile-card">
                 <div class="app-avatar-wrapper">
-                    <div class="app-avatar-img" style="background:#E5ECE5; display:flex; align-items:center; justify-content:center; color:#7C8B7C; font-size:36px; font-weight:bold;">G</div>
+                    <div class="app-avatar-img" style="background: var(--white); display:flex; align-items:center; justify-content:center; color: var(--primary-color); font-size:36px; font-weight:bold; border: 1px solid #EADCC2;">G</div>
                 </div>
                 
                 <div class="app-meta-box">
@@ -387,9 +399,18 @@
                 </div>
             </div>
 
+            <!-- FEATURE 1: Interactive Point Exchange Center Panel -->
+            <div class="app-section-heading">Rewards Exchange</div>
+            <div class="voucher-claim-terminal">
+                <div style="font-size:13px; font-weight:600; color:var(--dark-color);"><i class="fas fa-ticket-alt" style="color:var(--secondary-color); margin-right:4px;"></i> Claim 20% Discount Voucher</div>
+                <div class="claim-flex-row">
+                    <span style="font-size:11px; color:#7A6B66;">Cost: 50 Sweet Loyalty Points</span>
+                    <button class="claim-action-btn" id="claimVoucherBtn1" onclick="tradePointsForPromoCode('SWEET20', 50)">Redeem Code</button>
+                </div>
+            </div>
+
             <div class="app-section-heading">Account settings</div>
             <div class="app-list-stack">
-                
                 <div class="app-list-item">
                     <div class="app-list-left">
                         <div class="app-list-icon"><i class="fas fa-envelope"></i></div>
@@ -400,7 +421,6 @@
                     </div>
                     <div class="app-list-arrow"><i class="fas fa-chevron-right"></i></div>
                 </div>
-
                 <div class="app-list-item">
                     <div class="app-list-left">
                         <div class="app-list-icon"><i class="fas fa-phone"></i></div>
@@ -411,7 +431,6 @@
                     </div>
                     <div class="app-list-arrow"><i class="fas fa-chevron-right"></i></div>
                 </div>
-
                 <div class="app-list-item">
                     <div class="app-list-left">
                         <div class="app-list-icon"><i class="fas fa-map-marker-alt"></i></div>
@@ -422,12 +441,11 @@
                     </div>
                     <div class="app-list-arrow"><i class="fas fa-chevron-right"></i></div>
                 </div>
-
             </div>
 
-            <div class="app-section-heading">Session History</div>
+            <div class="app-section-heading">Session History (Click to Open)</div>
             <div class="app-list-stack" id="dashboard-history-pane">
-                <p style="text-align: center; color: #7C8B7C; padding: 25px; font-size: 13px; font-style: italic;">No past orders found in this session.</p>
+                <p style="text-align: center; color: #7A6B66; padding: 25px; font-size: 13px; font-style: italic;">No past orders found in this session.</p>
             </div>
 
             <div class="app-nav-dock">
@@ -436,25 +454,22 @@
                 <div class="dock-item" onclick="toggleProfile(false); toggleCart(true);"><i class="fas fa-shopping-bag"></i></div>
                 <div class="dock-item active"><i class="fas fa-user"></i></div>
             </div>
-
         </div>
     </div>
 
+    <!-- Unified Single-Card Express Checkout Screen -->
     <div class="modal-overlay" id="checkout-modal">
         <div class="express-checkout-card">
             <i class="fas fa-times close-express" onclick="closeCheckout()"></i>
-            
             <div class="express-header">
                 <h3>✨ Secure Checkout</h3>
                 <p style="font-size: 13px; color: #777; margin-top: 3px;">Review your box and enter delivery info below.</p>
             </div>
-
             <div class="express-section">
                 <span class="step-badge">STEP 1</span>
                 <label style="display:block; font-weight:600; font-size:14px; color:#333;">Your Sweet Selections</label>
                 <div class="mini-summary-box" id="express-summary-pane"></div>
             </div>
-
             <div class="express-section" style="margin-top: -10px;">
                 <div class="promo-input-group">
                     <input type="text" id="promo-code-input" class="clean-input" placeholder="Have a promo code? Enter it here" style="margin-top:0;">
@@ -462,20 +477,18 @@
                 </div>
                 <p id="promo-status" class="promo-message" style="margin-top:5px; font-weight:500;"></p>
             </div>
-
             <form id="order-form" onsubmit="submitOrder(event)">
                 <div class="express-section">
                     <span class="step-badge">STEP 2</span>
                     <label style="display:block; font-weight:600; font-size:14px; color:#333; margin-bottom:5px;">Where should we deliver?</label>
-                    <input type="text" class="clean-input" required placeholder="Full Name">
-                    <input type="text" class="clean-input" required placeholder="Street Address, Building, Apartment No.">
+                    <input type="text" class="clean-input" required placeholder="Full Name" value="Gunnepalli Satya Ganesh">
+                    <input type="text" class="clean-input" required placeholder="Street Address, Building, Apartment No." value="2-14 Sweet Corner, Town Area">
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-                        <input type="text" class="clean-input" required placeholder="City">
-                        <input type="text" class="clean-input" required placeholder="PIN Code">
+                        <input type="text" class="clean-input" required placeholder="City" value="Bhimavaram">
+                        <input type="text" class="clean-input" required placeholder="PIN Code" value="534201">
                     </div>
                     <input type="tel" class="clean-input" required placeholder="Mobile Phone Number">
                 </div>
-
                 <div class="express-section" style="margin-bottom: 25px;">
                     <span class="step-badge">STEP 3</span>
                     <label style="display:block; font-weight:600; font-size:14px; color:#333; margin-bottom:5px;">Payment Method</label>
@@ -487,45 +500,49 @@
                         <i class="fas fa-shield-alt" style="color: var(--success-color);"></i>
                     </div>
                 </div>
-
                 <button type="submit" class="checkout-btn" style="padding:14px; font-size:16px; border-radius:8px; background:var(--primary-color);">Place My Order Safely</button>
             </form>
         </div>
     </div>
 
+    <!-- Live Order Tracker Modal Container -->
     <div id="orderTrackerModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(32,16,11,0.5); z-index: 1000; justify-content: center; align-items: center; backdrop-filter: blur(4px);">
         <div style="background: var(--white); padding: 30px; border-radius: 15px; width: 90%; max-width: 500px; text-align: center; box-shadow: 0 12px 30px rgba(32,16,11,0.25); border: 1px solid #EADCC2;">
-            
             <h2 style="color: var(--primary-color); margin-bottom: 5px; font-family: 'Playfair Display', serif;">Order Status Pipeline</h2>
             <p style="color: #7A6B66; font-size: 14px; margin-bottom: 25px;">Tracking ID: <span id="trackerOrderId" style="font-weight: bold;">#SB-0000</span></p>
-            
             <div style="display: flex; justify-content: space-between; position: relative; margin-bottom: 30px; padding: 0 10px;">
                 <div id="trackerLine" style="position: absolute; top: 15px; left: 10%; width: 80%; height: 4px; background: #e0e0e0; z-index: 1; transition: background 0.5s;"></div>
-                
                 <div style="z-index: 2; text-align: center; width: 60px;">
                     <div id="stepCircle1" style="width: 34px; height: 34px; border-radius: 50%; background: var(--primary-color); color: white; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">✓</div>
                     <span style="font-size: 12px; font-weight: bold; color: var(--dark-color);">Confirmed</span>
                 </div>
-                
                 <div style="z-index: 2; text-align: center; width: 60px;">
                     <div id="stepCircle2" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">2</div>
                     <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText2">Preparing</span>
                 </div>
-                
                 <div style="z-index: 2; text-align: center; width: 60px;">
                     <div id="stepCircle3" style="width: 34px; height: 34px; border-radius: 50%; background: #e0e0e0; color: #666; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: 0.3s;">3</div>
                     <span style="font-size: 12px; font-weight: bold; color: #666;" id="stepText3">Dispatched</span>
                 </div>
             </div>
-            
             <div style="background: var(--light-bg); padding: 15px; border-radius: 10px; border: 1px solid #EADCC2; margin-bottom: 20px;">
                 <p id="trackerStatusMessage" style="margin: 0; font-size: 15px; color: var(--primary-color); font-weight: bold;">We have received your order! Preparing soon...</p>
             </div>
-            
             <button onclick="closeTrackerModal()" style="background: var(--dark-color); color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: background 0.2s;">Minimize Window</button>
         </div>
     </div>
 
+    <!-- FEATURE 2: Dynamic Itemized Clickable Receipt Modal Overlay Canvas -->
+    <div class="receipt-modal-canvas" id="receiptDetailsOverlay" onclick="closeReceiptOverlayCard(event)">
+        <div class="receipt-sheet-paper">
+            <h3 style="font-family:'Playfair Display', serif; color:var(--primary-color); border-bottom:2px dashed #EADCC2; padding-bottom:8px; margin-bottom:15px; text-align:center;">🍬 Store Transaction Receipt</h3>
+            <div id="receiptItemsTargetList" style="font-size:13px; color:#555; display:flex; flex-direction:column; gap:8px; margin-bottom:15px; max-height:150px; overflow-y:auto;"></div>
+            <div id="receiptPricingTargetSummary" style="font-size:14px; border-top:1px solid #EADCC2; padding-top:10px;"></div>
+            <button style="width:100%; margin-top:20px; border:none; padding:8px; background:var(--dark-color); color:white; font-weight:600; border-radius:6px; cursor:pointer;" onclick="document.getElementById('receiptDetailsOverlay').style.display='none'">Dismiss Summary</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
     <footer>
         <div class="footer-content">
             <h3>SugarBliss Confectionery</h3>
@@ -541,13 +558,14 @@
     </footer>
 
     <script>
+        // Feature Upgrade: Multi-Image Asset Configuration Mappings Included
         const sweetsData = [
-            { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", weight: "500g Box", rating: 5, reviews: 142, stock: 8, img: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
-            { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", weight: "750g Hamper", rating: 4, reviews: 98, stock: 5, img: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
-            { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", weight: "6 Item Pack", rating: 5, reviews: 210, stock: 12, img: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
-            { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", weight: "1kg Tin Box", rating: 4, reviews: 84, stock: 3, img: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
-            { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", weight: "400g Tray", rating: 5, reviews: 67, stock: 0, img: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
-            { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", weight: "3 Item Pack", rating: 4, reviews: 115, stock: 7, img: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" }
+            { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", weight: "500g Box", rating: 5, reviews: 142, stock: 8, img1: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
+            { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", weight: "750g Hamper", rating: 4, reviews: 98, stock: 5, img1: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+            { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", weight: "6 Item Pack", rating: 5, reviews: 210, stock: 12, img1: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
+            { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", weight: "1kg Tin Box", rating: 4, reviews: 84, stock: 3, img1: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=400&q=80" },
+            { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", weight: "400g Tray", rating: 5, reviews: 67, stock: 0, img1: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+            { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", weight: "3 Item Pack", rating: 4, reviews: 115, stock: 7, img1: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" }
         ];
 
         let cart = [];
@@ -556,8 +574,10 @@
         let activeDiscountRate = 0; 
         let isFreeShipping = false;
         
-        // Permanent persistent memory storage check configuration
         let userPointsTotal = parseInt(localStorage.getItem('sb_user_points')) || 40;
+        
+        // Dynamic historical cache store indexing simulated checkout summaries inside active session
+        let activeSessionOrderCache = {};
 
         window.onload = () => {
             const savedCart = localStorage.getItem('sugarbliss_cart');
@@ -612,7 +632,10 @@
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
-                    <img src="${sweet.img}" alt="${sweet.name}" class="product-img">
+                    <div class="product-img-wrapper">
+                        <img src="${sweet.img1}" alt="${sweet.name}" class="product-img primary-shot">
+                        <img src="${sweet.img2}" alt="${sweet.name}" class="product-img alt-shot">
+                    </div>
                     <div class="product-info">
                         <h3 class="product-title">${sweet.name}</h3>
                         <div class="product-rating">${starsHTML}<span class="rating-count">(${sweet.reviews})</span></div>
@@ -745,7 +768,7 @@
                 const itemRow = document.createElement('div');
                 itemRow.className = 'cart-item';
                 itemRow.innerHTML = `
-                    <img src="${item.img}" class="cart-item-img">
+                    <img src="${item.img1 || item.img}" class="cart-item-img">
                     <div class="cart-item-details">
                         <h4>${item.name}</h4>
                         <p style="color:var(--primary-color); font-weight:600;">$${(item.price * item.quantity).toFixed(2)}</p>
@@ -890,6 +913,20 @@
             const randomOrderId = Math.floor(100000 + Math.random() * 900000);
             const completeOrderStr = '#SB-' + randomOrderId;
 
+            // Cache current cart manifest list items safely inside unique session index object definitions
+            let subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            let discountAmount = subtotal * activeDiscountRate;
+            let deliveryFee = isFreeShipping ? 0.00 : 3.50;
+            let grandTotal = (subtotal - discountAmount) + deliveryFee;
+
+            activeSessionOrderCache[completeOrderStr] = {
+                items: [...cart],
+                subtotal: subtotal,
+                discount: discountAmount,
+                delivery: deliveryFee,
+                grand: grandTotal
+            };
+
             launchLiveOrderTracker(completeOrderStr); 
             closeCheckout(); 
             appendOrderToDashboardHistory(completeOrderStr);
@@ -917,12 +954,14 @@
 
             const newLogItem = document.createElement('div');
             newLogItem.className = 'app-order-log-card';
+            // Linked clickable invocation trigger targeting unique receipt parsing loops
+            newLogItem.setAttribute('onclick', `openReceiptOverlayCard("${orderNumber}")`);
             newLogItem.innerHTML = `
                 <div class="app-list-left">
                     <div class="app-list-icon" style="color:var(--secondary-color);"><i class="fas fa-box-open"></i></div>
                     <div>
                         <div class="app-list-text-main">${orderNumber}</div>
-                        <div class="app-list-text-sub">Simulated Confectionery Registry</div>
+                        <div class="app-list-text-sub">Tap to view itemized breakdown</div>
                     </div>
                 </div>
                 <span style="background:var(--success-color); color:white; font-size:11px; padding:3px 10px; border-radius:12px; font-weight:bold; letter-spacing:0.5px;">PROCESSED</span>
@@ -930,10 +969,59 @@
             historyPane.insertBefore(newLogItem, historyPane.firstChild);
         }
 
+        /* FEATURE UPGRADE LOGIC 1: Itemized Receipt Overlay Rendering Engine Loops */
+        function openReceiptOverlayCard(orderId) {
+            const orderRecord = activeSessionOrderCache[orderId];
+            if(!orderRecord) return;
+
+            const listPane = document.getElementById('receiptItemsTargetList');
+            const summaryPane = document.getElementById('receiptPricingTargetSummary');
+            
+            listPane.innerHTML = "";
+            orderRecord.items.forEach(item => {
+                listPane.innerHTML += `
+                    <div style="display:flex; justify-content:space-between;">
+                        <span>• ${item.name} (x${item.quantity})</span>
+                        <span>$${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                `;
+            });
+
+            summaryPane.innerHTML = `
+                <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>Subtotal:</span><span>$${orderRecord.subtotal.toFixed(2)}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px; color:var(--success-color);"><span>Discount:</span><span>-$${orderRecord.discount.toFixed(2)}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:13px; margin-bottom:4px;"><span>Delivery:</span><span>$${orderRecord.delivery.toFixed(2)}</span></div>
+                <div style="display:flex; justify-content:space-between; font-size:16px; font-weight:bold; color:var(--primary-color); margin-top:8px; border-top:1px dashed #ccc; padding-top:8px;"><span>Grand Total:</span><span>$${orderRecord.grand.toFixed(2)}</span></div>
+            `;
+
+            document.getElementById('receiptDetailsOverlay').style.display = 'flex';
+        }
+
+        function closeReceiptOverlayCard(event) {
+            if(event.target.id === "receiptDetailsOverlay") {
+                document.getElementById('receiptDetailsOverlay').style.display = 'none';
+            }
+        }
+
+        /* FEATURE UPGRADE LOGIC 2: Interactive Points Trading Engine Outlet */
+        function tradePointsForPromoCode(promoStr, pointsCost) {
+            if(userPointsTotal < pointsCost) {
+                alert("Insufficient reward points balance context available to execute exchange.");
+                return;
+            }
+            userPointsTotal -= pointsCost;
+            localStorage.setItem('sb_user_points', userPointsTotal);
+            refreshPointsProgressUI();
+            
+            alert(`🎉 Success! Redeemed ${pointsCost} Points. Your Promo Code is: ${promoStr}. Copy and apply it inside your active checkout window modal parameters!`);
+        }
+
         function refreshPointsProgressUI() {
             const label = document.getElementById('appUserPointsLabel');
             const tierText = document.getElementById('appUserTierText');
             const filledBar = document.getElementById('appUserProfileProgressBar');
+            const claimBtn1 = document.getElementById('claimVoucherBtn1');
+            
             if(!label || !tierText || !filledBar) return;
             
             label.innerText = `${userPointsTotal} Points`;
@@ -950,6 +1038,11 @@
             }
 
             filledBar.style.width = `${Math.min((userPointsTotal / maxCapacity) * 100, 100)}%`;
+            
+            // Auto validation controlling points exchange accessibility live metrics state
+            if(claimBtn1) {
+                claimBtn1.disabled = userPointsTotal < 50;
+            }
         }
 
         function clearProfileCache() {
