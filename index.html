@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SugarBliss - Premium Full-Featured Sweet Shop</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
@@ -20,6 +20,7 @@
             --white: #FFFBF4;            /* Warm Ivory Cream Canvas */
             --gray-light: #F9F3E6;       /* Smooth Biscuit Surface Tone */
             --success-color: #1B8A5A;    /* Emerald Sweet Mint Green */
+            --app-bg: #F4F7F4;           /* Soft Light Minty Grey backdrop */
         }
         body { background-color: var(--white); color: var(--dark-color); overflow-x: hidden; }
 
@@ -210,81 +211,91 @@
         .promo-btn { background: var(--dark-color); color: white; border: none; padding: 0 15px; border-radius: 6px; font-weight: 600; cursor: pointer; }
         .promo-message { font-size: 12px; margin-top: 4px; display: none; }
 
-        /* --- High-End Unique Glassmorphism Bento Portal --- */
+        /* --- DESIGN ADAPTATION FROM 66baa0dc5bbe0bfbc1e4ebf6affef7be.webp --- */
         .profile-page-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, #20100B 0%, #4A0016 100%); 
-            z-index: 1500; display: none; overflow-y: auto; padding: 60px 20px;
+            background-color: var(--app-bg); z-index: 1500; display: none;
+            overflow-y: auto; padding: 20px;
+        }
+        .app-frame-container {
+            max-width: 480px; margin: 20px auto; background: #EEF3EE;
+            border-radius: 36px; padding: 25px 20px 35px; box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+            border: 1px solid rgba(0,0,0,0.03); position: relative;
+        }
+        .app-top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
+        .app-circle-btn {
+            width: 40px; height: 40px; background: #ffffff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: #556055;
+            cursor: pointer; box-shadow: 0 2px 6px rgba(0,0,0,0.04); transition: transform 0.2s;
+        }
+        .app-circle-btn:hover { transform: scale(1.05); }
+        .app-page-title { font-size: 17px; font-weight: 600; color: #1E251E; }
+
+        /* Profile Header Component */
+        .app-profile-card { text-align: center; margin-bottom: 25px; position: relative; }
+        .app-avatar-wrapper { position: relative; width: 110px; height: 110px; margin: 0 auto 15px; }
+        .app-avatar-img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            border: 4px solid #ffffff; box-shadow: 0 6px 16px rgba(0,0,0,0.06);
         }
         
-        .portal-back-btn {
-            position: absolute; top: 35px; left: 40px; cursor: pointer;
-            font-size: 14px; font-weight: 700; color: #FFFBF4;
-            background: rgba(255, 251, 244, 0.1); padding: 10px 20px;
-            border-radius: 30px; backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 251, 244, 0.15);
-            display: flex; align-items: center; gap: 10px;
-            letter-spacing: 1px; text-transform: uppercase; transition: all 0.3s;
+        /* Verification Progress Area */
+        .app-meta-box {
+            background: #ffffff; border-radius: 20px; padding: 20px; text-align: left;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.01);
         }
-        .portal-back-btn:hover {
-            background: var(--secondary-color); color: #ffffff;
-            box-shadow: 0 0 15px rgba(255, 115, 0, 0.4); transform: translateY(-2px);
-        }
-
-        .profile-bento-grid {
-            max-width: 1200px; margin: 60px auto 0;
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px;
-        }
-
-        .bento-box {
-            background: rgba(255, 251, 244, 0.06);
-            backdrop-filter: blur(16px) saturate(120%);
-            border: 1px solid rgba(255, 251, 244, 0.1);
-            border-radius: 24px; padding: 30px; color: #FFFBF4;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-        .bento-box:hover {
-            transform: translateY(-6px);
-            border-color: rgba(255, 115, 0, 0.3);
-            box-shadow: 0 12px 40px rgba(255, 115, 0, 0.15);
-        }
-
-        .bento-profile-hero { grid-column: span 2; display: flex; align-items: center; gap: 30px; }
-        .bento-rewards { grid-column: span 1; text-align: center; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .bento-address { grid-column: span 1; }
-        .bento-orders { grid-column: span 2; }
-
-        .bento-avatar {
-            width: 110px; height: 110px; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            font-size: 42px; font-weight: 700; box-shadow: 0 8px 20px rgba(255, 115, 0, 0.3);
-        }
-        .bento-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; margin-bottom: 5px; color: #FFFBF4; }
+        .app-meta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .app-user-name { font-size: 18px; font-weight: 700; color: #1E251E; }
+        .app-progress-label { font-size: 12px; color: #6E7B6E; font-weight: 500; }
+        .app-progress-pct { font-size: 13px; font-weight: 700; color: var(--success-color); background: #EAF5EA; padding: 2px 8px; border-radius: 8px; }
         
-        .huge-points { font-size: 48px; font-weight: 700; color: var(--secondary-color); text-shadow: 0 0 10px rgba(255, 115, 0, 0.3); line-height: 1; margin: 10px 0; }
-        .bento-label { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: #FF7300; font-weight: 700; margin-bottom: 15px; }
+        .app-progress-bar-bg { width: 100%; height: 6px; background: #E5ECE5; border-radius: 10px; overflow: hidden; }
+        .app-progress-bar-fill { width: 85%; height: 100%; background: #151B15; border-radius: 10px; }
+
+        /* Rounded Rounded List Group Stack */
+        .app-section-heading { font-size: 13px; font-weight: 600; color: #7C8B7C; text-transform: uppercase; letter-spacing: 0.5px; margin: 25px 0 10px 5px; }
+        .app-list-stack { display: flex; flex-direction: column; gap: 10px; }
+        .app-list-item {
+            background: #ffffff; border-radius: 16px; padding: 16px;
+            display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.01); border: 1px solid rgba(0,0,0,0.01);
+            transition: background 0.2s, transform 0.2s; cursor: pointer;
+        }
+        .app-list-item:hover { background: #FAF9F6; transform: translateY(-1px); }
+        .app-list-left { display: flex; align-items: center; gap: 15px; }
+        .app-list-icon { width: 34px; height: 34px; background: #F2F5F2; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: #4A554A; font-size: 14px; }
         
-        .address-item { margin-bottom: 12px; font-size: 14px; color: #EADCC2; line-height: 1.6; }
-        .address-item strong { color: #FFFBF4; display: block; font-size: 12px; text-transform: uppercase; opacity: 0.6; }
+        .app-list-text-main { font-size: 14px; font-weight: 600; color: #1E251E; }
+        .app-list-text-sub { font-size: 12px; color: #7C8B7C; margin-top: 1px; }
+        .app-list-arrow { color: #A5B2A5; font-size: 12px; }
 
-        .portal-history-item {
-            background: rgba(255, 251, 244, 0.04); border: 1px solid rgba(255, 251, 244, 0.08);
-            border-radius: 14px; padding: 18px; margin-bottom: 15px; transition: all 0.3s;
+        /* Bottom Menu Action Nav Dock */
+        .app-nav-dock {
+            background: #1E251E; border-radius: 24px; padding: 10px 14px; margin-top: 35px;
+            display: flex; justify-content: space-between; align-items: center; box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
-        .portal-history-item:hover {
-            background: rgba(255, 251, 244, 0.08); transform: scale(1.01); border-color: var(--secondary-color);
+        .dock-item {
+            width: 46px; height: 46px; display: flex; align-items: center; justify-content: center;
+            color: #A5B2A5; font-size: 16px; cursor: pointer; border-radius: 16px; transition: all 0.2s;
+        }
+        .dock-item:hover { color: #ffffff; background: rgba(255,255,255,0.05); }
+        .dock-item.active { background: #ffffff; color: #1E251E; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+
+        /* Custom Order Logs inside List Format */
+        .app-order-log-card {
+            background: #ffffff; border-radius: 16px; padding: 15px; margin-bottom: 10px;
+            border: 1px solid rgba(0,0,0,0.01); display: flex; justify-content: space-between; align-items: center;
         }
 
-        @media (max-width: 992px) {
-            .profile-bento-grid { grid-template-columns: 1fr; }
-            .bento-profile-hero, .bento-rewards, .bento-address, .bento-orders { grid-column: span 1; }
-            .bento-profile-hero { flex-direction: column; text-align: center; }
+        @media (max-width: 500px) {
+            .profile-page-overlay { padding: 10px; }
+            .app-frame-container { padding: 15px 10px 25px; border-radius: 24px; margin: 10px auto; }
         }
     </style>
 </head>
 <body>
 
+    <!-- Header Navigation -->
     <header>
         <nav class="navbar">
             <a href="#" class="logo">Sugar<span>Bliss</span></a>
@@ -305,6 +316,7 @@
         </nav>
     </header>
 
+    <!-- Banner -->
     <section class="hero">
         <div class="hero-slider-bg"></div>
         <div class="hero-content-wrapper">
@@ -313,6 +325,7 @@
         </div>
     </section>
 
+    <!-- Main Grid Content Section -->
     <section>
         <h2 class="section-title">Explore Our Treats</h2>
         <div class="categories">
@@ -324,6 +337,7 @@
         <div class="products-container" id="products-grid"></div>
     </section>
 
+    <!-- Sliding Shopping Cart Drawer Container -->
     <div class="cart-drawer" id="cart-drawer">
         <div class="cart-header">
             <h3>Your Sweet Box</h3>
@@ -339,49 +353,87 @@
         </div>
     </div>
 
+    <!-- MODERN PHONE OVERLAY ADAPTED FROM IMAGE 66baa0dc5bbe0bfbc1e4ebf6affef7be.webp -->
     <div class="profile-page-overlay" id="profile-drawer">
-        <div class="portal-back-btn" onclick="toggleProfile(false)">
-            <i class="fas fa-arrow-left"></i> Return To Gallery
-        </div>
-
-        <div class="profile-bento-grid">
+        <div class="app-frame-container">
             
-            <div class="bento-box bento-profile-hero">
-                <div class="bento-avatar">G</div>
-                <div>
-                    <h2 class="bento-title">Ganesh Ganesh</h2>
-                    <p style="color: #EADCC2; font-size: 15px; letter-spacing: 0.5px;">
-                        <i class="fas fa-map-marker-alt" style="color: var(--secondary-color); margin-right: 6px;"></i> Bhimavaram, India
-                    </p>
+            <!-- Top Controls bar -->
+            <div class="app-top-bar">
+                <div class="app-circle-btn" onclick="toggleProfile(false)"><i class="fas fa-chevron-left"></i></div>
+                <div class="app-page-title">Profile</div>
+                <div class="app-circle-btn"><i class="fas fa-cog"></i></div>
+            </div>
+
+            <!-- Avatar & Progress Box -->
+            <div class="app-profile-card">
+                <div class="app-avatar-wrapper">
+                    <!-- Standard clear profile silhouette icon -->
+                    <div class="app-avatar-img" style="background:#E5ECE5; display:flex; align-items:center; justify-content:center; color:#7C8B7C; font-size:36px; font-weight:bold;">G</div>
+                </div>
+                
+                <div class="app-meta-box">
+                    <div class="app-meta-header">
+                        <div class="app-user-name">Ganish</div>
+                        <div class="app-progress-pct">85%</div>
+                    </div>
+                    <div class="app-progress-label" style="margin-bottom:8px;">Identity verification completed</div>
+                    <div class="app-progress-bar-bg">
+                        <div class="app-progress-bar-fill"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="bento-box bento-rewards">
-                <div class="bento-label"><i class="fas fa-crown"></i> Member Tier</div>
-                <div class="huge-points">120</div>
-                <p style="font-size: 14px; color: #FFFBF4; font-weight: 600;">Gold Tier Sweet Points</p>
+            <!-- Account Settings Data Stack list items styled exactly like image -->
+            <div class="app-section-heading">Account settings</div>
+            <div class="app-list-stack">
+                
+                <div class="app-list-item">
+                    <div class="app-list-left">
+                        <div class="app-list-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <div class="app-list-text-main">Email Registry</div>
+                            <div class="app-list-text-sub">Verified session active</div>
+                        </div>
+                    </div>
+                    <div class="app-list-arrow"><i class="fas fa-chevron-right"></i></div>
+                </div>
+
+                <div class="app-list-item">
+                    <div class="app-list-left">
+                        <div class="app-list-icon"><i class="fas fa-phone"></i></div>
+                        <div>
+                            <div class="app-list-text-main">Phone Registry</div>
+                            <div class="app-list-text-sub">+91 Linked Node</div>
+                        </div>
+                    </div>
+                    <div class="app-list-arrow"><i class="fas fa-chevron-right"></i></div>
+                </div>
+
+                <div class="app-list-item">
+                    <div class="app-list-left">
+                        <div class="app-list-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <div class="app-list-text-main">Saved Address</div>
+                            <div class="app-list-text-sub">Bhimavaram, Andhra Pradesh</div>
+                        </div>
+                    </div>
+                    <div class="app-list-arrow"><i class="fas fa-chevron-right"></i></div>
+                </div>
+
             </div>
 
-            <div class="bento-box bento-address">
-                <div class="bento-label"><i class="fas fa-truck"></i> Shipping Registry</div>
-                <div class="address-item">
-                    <strong>Default Recipient</strong> Gunnepalli Satya Ganesh
-                </div>
-                <div class="address-item">
-                    <strong>Primary Hub Address</strong> 2-14 Sweet Corner, Town Area
-                </div>
-                <div class="address-item">
-                    <strong>Region</strong> Bhimavaram, Andhra Pradesh
-                </div>
+            <!-- Dynamic Confectionery Session History Stack list group area -->
+            <div class="app-section-heading">Session History</div>
+            <div class="app-list-stack" id="dashboard-history-pane">
+                <p style="text-align: center; color: #7C8B7C; padding: 25px; font-size: 13px; font-style: italic;">No past orders found in this session.</p>
             </div>
 
-            <div class="bento-box bento-orders">
-                <div class="bento-label"><i class="fas fa-history"></i> Session Pipeline Logs</div>
-                <div id="dashboard-history-pane">
-                    <p style="text-align: center; color: #EADCC2; padding: 40px; font-size: 14px; font-style: italic;">
-                        No past confectionery orders managed in this active session.
-                    </p>
-                </div>
+            <!-- Sleek Bottom Action Nav Dock matching image theme layout link nodes -->
+            <div class="app-nav-dock">
+                <div class="dock-item" onclick="toggleProfile(false)"><i class="fas fa-home"></i></div>
+                <div class="dock-item"><i class="fas fa-th-large"></i></div>
+                <div class="dock-item" onclick="toggleProfile(false); toggleCart(true);"><i class="fas fa-shopping-bag"></i></div>
+                <div class="dock-item active"><i class="fas fa-user"></i></div>
             </div>
 
         </div>
@@ -813,18 +865,21 @@
             const historyPane = document.getElementById('dashboard-history-pane');
             if (!historyPane) return;
 
-            if (historyPane.innerHTML.includes("No past confectionery orders managed")) {
+            if (historyPane.innerHTML.includes("No past orders found")) {
                 historyPane.innerHTML = "";
             }
 
             const newLogItem = document.createElement('div');
-            newLogItem.className = 'portal-history-item';
+            newLogItem.className = 'app-order-log-card';
             newLogItem.innerHTML = `
-                <div style="display:flex; justify-content:space-between; font-weight:600; margin-bottom:4px;">
-                    <span style="color: var(--secondary-color); font-weight: 700;">${orderNumber}</span>
-                    <span style="background:var(--success-color); color:white; font-size:10px; padding:2px 8px; border-radius:12px; font-weight:bold;">PROCESSED</span>
+                <div class="app-list-left">
+                    <div class="app-list-icon" style="color:var(--secondary-color);"><i class="fas fa-box-open"></i></div>
+                    <div>
+                        <div class="app-list-text-main">${orderNumber}</div>
+                        <div class="app-list-text-sub">Simulated Confectionery Registry</div>
+                    </div>
                 </div>
-                <div style="color:#EADCC2; font-size:13px; margin-top:4px;">Simulated Sweet Order Placement Successfully Managed</div>
+                <span style="background:var(--success-color); color:white; font-size:11px; padding:3px 10px; border-radius:12px; font-weight:bold; letter-spacing:0.5px;">PROCESSED</span>
             `;
             historyPane.insertBefore(newLogItem, historyPane.firstChild);
         }
