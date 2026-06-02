@@ -69,10 +69,21 @@
         }
         .search-container input::placeholder { color: #A0908A; }
         .nav-icons { display: flex; gap: 20px; font-size: 22px; cursor: pointer; color: var(--dark-color); }
+        
+        /* Kinetic pop animation anchor badge */
         .cart-icon-wrapper { position: relative; }
         .cart-count {
             position: absolute; top: -8px; right: -8px; background-color: var(--primary-color);
             color: white; font-size: 11px; padding: 2px 6px; border-radius: 50%; font-weight: bold;
+        }
+        .cart-count.bounce-alert {
+            animation: badgePopKinetic 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        @keyframes badgePopKinetic {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5) translateY(-5px); background-color: var(--secondary-color); }
+            100% { transform: scale(1); }
         }
 
         /* --- Hero Slider Layout Architecture --- */
@@ -106,6 +117,19 @@
             }
         }
 
+        /* RESTORED KEYFRAME TRANSITIONS FOR HERO CONTENT SUBTEXTS */
+        @keyframes sweetSlidingText {
+            0%, 28% { transform: translateX(0); opacity: 1; }
+            30% { transform: translateX(-40px); opacity: 0; }
+            31% { transform: translateX(40px); opacity: 0; }
+            33%, 61% { transform: translateX(0); opacity: 1; }
+            63% { transform: translateX(-40px); opacity: 0; }
+            64% { transform: translateX(40px); opacity: 0; }
+            66%, 95% { transform: translateX(0); opacity: 1; }
+            98% { transform: translateX(-40px); opacity: 0; }
+            99% { transform: translateX(40px); opacity: 0; }
+        }
+
         /* --- Filter Categories --- */
         .section-title { text-align: center; margin: 40px 0 25px; font-family: 'Playfair Display', serif; font-size: 32px; color: var(--dark-color); }
         .categories { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
@@ -114,26 +138,62 @@
             color: var(--primary-color); border-radius: 20px; cursor: pointer; font-weight: 600; transition: all 0.3s;
         }
         .cat-btn.active, .cat-btn:hover { background-color: var(--primary-color); color: var(--white); box-shadow: 0 4px 10px rgba(122, 0, 38, 0.2); }
+/* --- Kinetic Cart Badge Animation --- */
+        .cart-count.bounce-alert {
+            animation: badgePopKinetic 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
 
+        @keyframes badgePopKinetic {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.4) translateY(-5px); background-color: var(--secondary-color); }
+            100% { transform: scale(1); }
+        }
         /* --- Products Grid --- */
+  /* --- Products Grid: Custom Sized Old Layout --- */
         .products-container {
-            max-width: 1200px; margin: 0 auto; padding: 0 20px 60px;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px;
+            max-width: 100%; /* CHANGED: Removes the 1200px limit to cover left & right space */
+            margin: 0 auto; 
+            padding: 0 4%; /* CHANGED: Dynamic side margins so it looks beautiful on all displays */
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 30px; /* Enhanced grid spacing to fill the space cleanly */
         }
-        .product-card {
-            background-color: #FFFFFF; border-radius: 15px; overflow: hidden;
-            box-shadow: 0 6px 18px rgba(32,16,11,0.04); display: flex; flex-direction: column; transition: transform 0.3s;
-            border: 1px solid #EADCC2;
-        }
-        .product-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(122, 0, 38, 0.08); }
         
-        /* MULTI-IMAGE CAROUSEL FRAME ACCENTS */
-        .product-img-wrapper { width: 100%; height: 200px; position: relative; overflow: hidden; }
-        .product-img { width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; transition: opacity 0.4s ease-in-out; }
+        .product-card {
+            background-color: #FFFFFF; 
+            border-radius: 15px; 
+            overflow: hidden;
+            box-shadow: 0 6px 18px rgba(32,16,11,0.04); 
+            display: flex; 
+            flex-direction: column; 
+            transition: transform 0.3s;
+            border: 1px solid #EADCC2;
+            width: 100%; /* Ensures the card grows perfectly to fill its new space */
+        }
+        .product-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 10px 20px rgba(122, 0, 38, 0.08); 
+        }
+        
+        /* ADJUST IMAGE FRAME HEIGHT HERE */
+        .product-img-wrapper { 
+            width: 100%; 
+            height: 180px; /* Reduced from 200px to keep the frame tighter */
+            position: relative; 
+            overflow: hidden; 
+        }
+        .product-img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            transition: opacity 0.4s ease-in-out; 
+        }
         .product-img.alt-shot { opacity: 0; }
         .product-card:hover .product-img.primary-shot { opacity: 0; }
         .product-card:hover .product-img.alt-shot { opacity: 1; }
-
         .product-info { padding: 20px; text-align: center; display: flex; flex-direction: column; flex-grow: 1; justify-content: space-between; }
         .product-title { font-size: 18px; font-weight: 600; margin-bottom: 4px; color: var(--dark-color); }
         .product-stock { font-size: 12px; color: #7A6B66; margin-bottom: 4px; }
@@ -254,7 +314,6 @@
         .app-section-heading { font-size: 13px; font-weight: 600; color: #7A6B66; text-transform: uppercase; letter-spacing: 0.5px; margin: 25px 0 10px 5px; }
         .app-list-stack { display: flex; flex-direction: column; gap: 10px; }
         
-        /* INTERACTIVE VOUCHER TRADE OUTLET ACCENTS */
         .voucher-claim-terminal {
             background: #ffffff; border: 1px dashed var(--secondary-color); border-radius: 16px; padding: 18px; margin-bottom: 15px;
         }
@@ -313,65 +372,21 @@
             margin: 20px 0;
             animation: fadeInEmptyState 0.5s ease-out forwards;
         }
-        .empty-search-state i {
-            font-size: 48px;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-            display: inline-block;
-        }
-        .empty-shortcut-grid {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
+        .empty-search-state i { font-size: 48px; color: var(--primary-color); margin-bottom: 15px; display: inline-block; }
+        .empty-shortcut-grid { display: flex; justify-content: center; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
 
-        /* --- RE-RESTORED FOOTER COMPONENT RULES --- */
+        /* --- Footer Styles --- */
         footer {
-            background-color: var(--dark-color);
-            color: var(--white);
-            padding: 50px 20px 40px;
-            text-align: center;
-            margin-top: 60px;
-            border-top: 3px solid var(--primary-color);
-            position: relative;
-            z-index: 10;
+            background-color: var(--dark-color); color: var(--white);
+            padding: 50px 20px 40px; text-align: center; margin-top: 60px;
+            border-top: 3px solid var(--primary-color); position: relative; z-index: 10;
         }
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .footer-content h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 26px;
-            margin-bottom: 12px;
-            color: var(--secondary-color);
-            letter-spacing: 0.5px;
-        }
-        .footer-content p {
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #D3C7C4;
-            line-height: 1.6;
-        }
-        .social-icons {
-            margin: 22px 0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-        .social-icons a {
-            color: var(--white);
-            font-size: 22px;
-            transition: color 0.2s transform 0.2s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .social-icons a:hover {
-            color: var(--secondary-color);
-            transform: translateY(-3px);
-        }
+        .footer-content { max-width: 1200px; margin: 0 auto; }
+        .footer-content h3 { font-family: 'Playfair Display', serif; font-size: 26px; margin-bottom: 12px; color: var(--secondary-color); letter-spacing: 0.5px; }
+        .footer-content p { margin-bottom: 8px; font-size: 14px; color: #D3C7C4; line-height: 1.6; }
+        .social-icons { margin: 22px 0; display: flex; justify-content: center; gap: 20px; }
+        .social-icons a { color: var(--white); font-size: 22px; transition: color 0.2s transform 0.2s; text-decoration: none; display: inline-block; }
+        .social-icons a:hover { color: var(--secondary-color); transform: translateY(-3px); }
 
         @keyframes fadeInEmptyState {
             from { opacity: 0; transform: translateY(15px); }
@@ -622,13 +637,24 @@
     </footer>
 
     <script>
-        const sweetsData = [
+     const sweetsData = [
+            // Existing Products
             { id: 1, name: "Premium Kaju Katli", price: 14.99, category: "traditional", weight: "500g Box", rating: 5, reviews: 142, stock: 8, img1: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80" },
             { id: 2, name: "Assorted Chocolate Box", price: 19.99, category: "chocolates", weight: "750g Hamper", rating: 4, reviews: 98, stock: 5, img1: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
             { id: 3, name: "French Macarons (6pcs)", price: 12.50, category: "baked", weight: "6 Item Pack", rating: 5, reviews: 210, stock: 12, img1: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
             { id: 4, name: "Gulab Jamun (Box of 8)", price: 9.99, category: "traditional", weight: "1kg Tin Box", rating: 4, reviews: 84, stock: 3, img1: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=400&q=80" },
             { id: 5, name: "Dark Chocolate Truffles", price: 16.00, category: "chocolates", weight: "400g Tray", rating: 5, reviews: 67, stock: 0, img1: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
-            { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", weight: "3 Item Pack", rating: 4, reviews: 115, stock: 7, img1: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" }
+            { id: 6, name: "Frosted Cupcake Trio", price: 10.50, category: "baked", weight: "3 Item Pack", rating: 4, reviews: 115, stock: 7, img1: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+            
+            // NEW PRODUCTS BUNDLE
+            { id: 7, name: "Ghee Motichoor Laddoo", price: 11.99, category: "traditional", weight: "500g Pack", rating: 5, reviews: 189, stock: 15, img1: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1605197585662-7934c9c74577?auto=format&fit=crop&w=400&q=80" },
+            { id: 8, name: "Milk Cake Sweet", price: 13.50, category: "traditional", weight: "500g Box", rating: 4, reviews: 76, stock: 10, img1: "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1626132647523-66f5bf380027?auto=format&fit=crop&w=400&q=80" },
+            { id: 9, name: "White Chocolate Bark", price: 15.25, category: "chocolates", weight: "350g Bag", rating: 4, reviews: 54, stock: 6, img1: "https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1549007994-cb92caef5dfd?auto=format&fit=crop&w=400&q=80" },
+            { id: 10, name: "Artisanal Pralines", price: 22.00, category: "chocolates", weight: "12pc Luxury Box", rating: 5, reviews: 43, stock: 4, img1: "https://images.unsplash.com/photo-1548907040-4d42b52115ca?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1544967082-d9d25d867d66?auto=format&fit=crop&w=400&q=80" },
+            { id: 11, name: "Red Velvet Brownies", price: 14.00, category: "baked", weight: "4pc Box", rating: 5, reviews: 112, stock: 8, img1: "https://images.unsplash.com/photo-1564355808539-22fda35bed7e?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1578985545062-69928b1d9587?auto=format&fit=crop&w=400&q=80" },
+            { id: 12, name: "Vanilla Bean Scones", price: 8.99, category: "baked", weight: "6pc Pack", rating: 4, reviews: 62, stock: 14, img1: "https://images.unsplash.com/photo-1550617931-e17a7b70dce2?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" },
+            { id: 13, name: "Premium Ghee Mysore Pak", price: 15.99, category: "traditional", weight: "500g Premium Box", rating: 5, reviews: 245, stock: 9, img1: "https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1534080564583-6be75777b70a?auto=format&fit=crop&w=400&q=80" },
+            { id: 14, name: "Hazelnut Ganache Macarons", price: 13.50, category: "baked", weight: "6 Item Pack", rating: 5, reviews: 88, stock: 11, img1: "https://images.unsplash.com/photo-1558961309-dbdf660084dd?auto=format&fit=crop&w=400&q=80", img2: "https://images.unsplash.com/photo-1569864358642-9d1684040f43?auto=format&fit=crop&w=400&q=80" }
         ];
 
         let cart = [];
@@ -638,7 +664,41 @@
         let isFreeShipping = false;
         
         let userPointsTotal = parseInt(localStorage.getItem('sb_user_points')) || 40;
-        let activeSessionOrderCache = {};
+        let activeSessionOrderCache = JSON.parse(localStorage.getItem('sb_order_cache')) || {};
+
+        let audioCtxInstance = null;
+        function getAudioContext() {
+            if (!audioCtxInstance) {
+                audioCtxInstance = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            return audioCtxInstance;
+        }
+
+        function playNativeSynthTone(freqArray, durationArray, type = 'sine') {
+            try {
+                const ctx = getAudioContext();
+                let timeOffset = ctx.currentTime;
+                
+                freqArray.forEach((freq, idx) => {
+                    const osc = ctx.createOscillator();
+                    const gainNode = ctx.createGain();
+                    
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, timeOffset);
+                    
+                    gainNode.gain.setValueAtTime(0.15, timeOffset);
+                    gainNode.gain.exponentialRampToValueAtTime(0.0001, timeOffset + durationArray[idx]);
+                    
+                    osc.connect(gainNode);
+                    gainNode.connect(ctx.destination);
+                    
+                    osc.start(timeOffset);
+                    osc.stop(timeOffset + durationArray[idx]);
+                    
+                    timeOffset += durationArray[idx] * 0.4; 
+                });
+            } catch (e) { console.log("Audio contexts deferred."); }
+        }
 
         window.onload = () => {
             const savedCart = localStorage.getItem('sugarbliss_cart');
@@ -648,6 +708,7 @@
             }
             renderProducts();
             refreshPointsProgressUI();
+            restoreOrderHistoryList();
         };
 
         function saveCartToMemory() {
@@ -725,10 +786,6 @@
             renderProducts();
         }
 
-        function resetSearchQueryFallback() {
-            triggerEmptyShortcut('all');
-        }
-
         function filterCategory(category, event) {
             currentCategory = category;
             document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
@@ -751,6 +808,7 @@
             }
         }
 
+        // CORRECTED METHOD SCOPE FOR PROGRESS ENGINE POP MODALS
         function toggleProfile(open) {
             const drawer = document.getElementById('profile-drawer');
             if (!drawer) return;
@@ -785,8 +843,44 @@
             updateCartUI();
             renderProducts();
             toggleCart(true);
+
+            const badge = document.getElementById('cart-count');
+            if(badge) {
+                badge.classList.remove('bounce-alert');
+                void badge.offsetWidth; 
+                badge.classList.add('bounce-alert');
+                setTimeout(() => badge.classList.remove('bounce-alert'), 450);
+            }
         }
 
+        function addToCart(productId) {
+            const product = sweetsData.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            const currentQty = existingItem ? existingItem.quantity : 0;
+            
+            if (currentQty >= product.stock) {
+                alert("Sorry, no more stock available for this sweet item!");
+                return;
+            }
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            saveCartToMemory();
+            updateCartUI();
+            renderProducts();
+            toggleCart(true);
+
+            // Badging Class Pop Animation Trigger Sequence
+            const badge = document.getElementById('cart-count');
+            if(badge) {
+                badge.classList.remove('bounce-alert');
+                void badge.offsetWidth; // Force a DOM reflow to reset the animation cleanly
+                badge.classList.add('bounce-alert');
+            }
+        }
         function changeQuantity(productId, change) {
             const product = sweetsData.find(p => p.id === productId);
             const item = cart.find(item => item.id === productId);
@@ -994,9 +1088,13 @@
                 grand: grandTotal
             };
 
+            localStorage.setItem('sb_order_cache', JSON.stringify(activeSessionOrderCache));
+
             launchLiveOrderTracker(completeOrderStr); 
             closeCheckout(); 
             appendOrderToDashboardHistory(completeOrderStr);
+
+            playNativeSynthTone([523.25, 659.25, 783.99, 1046.50], [0.15, 0.15, 0.15, 0.40], 'triangle');
             
             userPointsTotal += 20; 
             localStorage.setItem('sb_user_points', userPointsTotal);
@@ -1032,6 +1130,19 @@
                 </div>
                 <span style="background:var(--success-color); color:white; font-size:11px; padding:3px 10px; border-radius:12px; font-weight:bold; letter-spacing:0.5px;">PROCESSED</span>`;
             historyPane.insertBefore(newLogItem, historyPane.firstChild);
+        }
+
+        function restoreOrderHistoryList() {
+            const historyPane = document.getElementById('dashboard-history-pane');
+            if(!historyPane) return;
+            
+            const keys = Object.keys(activeSessionOrderCache);
+            if(keys.length > 0) {
+                historyPane.innerHTML = "";
+                keys.reverse().forEach(orderNumber => {
+                    appendOrderToDashboardHistory(orderNumber);
+                });
+            }
         }
 
         function openReceiptOverlayCard(orderId) {
@@ -1074,6 +1185,8 @@
             localStorage.setItem('sb_user_points', userPointsTotal);
             refreshPointsProgressUI();
             
+            playNativeSynthTone([587.33, 880.00], [0.12, 0.35], 'sine');
+            
             alert(`🎉 Success! Redeemed ${pointsCost} Points. Your Promo Code is: ${promoStr}. Copy and apply it inside your active checkout window modal parameters!`);
         }
 
@@ -1108,8 +1221,11 @@
         function clearProfileCache() {
             if(confirm("Reset all loyalty points metrics back to defaults?")) {
                 localStorage.removeItem('sb_user_points');
+                localStorage.removeItem('sb_order_cache');
                 userPointsTotal = 40;
+                activeSessionOrderCache = {};
                 refreshPointsProgressUI();
+                document.getElementById('dashboard-history-pane').innerHTML = `<p style="text-align: center; color: #7A6B66; padding: 25px; font-size: 13px; font-style: italic;">No past orders found in this session.</p>`;
             }
         }
 
