@@ -664,6 +664,7 @@
         let isFreeShipping = false;
         
         let userPointsTotal = parseInt(localStorage.getItem('sb_user_points')) || 40;
+        // Loads your past orders from localStorage instead of resetting on refresh
         let activeSessionOrderCache = JSON.parse(localStorage.getItem('sb_order_cache')) || {};
 
         let audioCtxInstance = null;
@@ -1087,7 +1088,8 @@
                 delivery: deliveryFee,
                 grand: grandTotal
             };
-
+// Saves the newly generated order receipt data into browser memory
+            localStorage.setItem('sb_order_cache', JSON.stringify(activeSessionOrderCache));
             localStorage.setItem('sb_order_cache', JSON.stringify(activeSessionOrderCache));
 
             launchLiveOrderTracker(completeOrderStr); 
@@ -1268,6 +1270,20 @@
 
         function closeTrackerModal() {
             document.getElementById('orderTrackerModal').style.display = 'none';
+        }
+        // Reads saved local history and injects it back into your profile UI pane
+        function restoreOrderHistoryList() {
+            const historyPane = document.getElementById('dashboard-history-pane');
+            if(!historyPane) return;
+            
+            const keys = Object.keys(activeSessionOrderCache);
+            if(keys.length > 0) {
+                historyPane.innerHTML = "";
+                // Reverse loops so the newest orders sit at the very top of the list
+                keys.reverse().forEach(orderNumber => {
+                    appendOrderToDashboardHistory(orderNumber);
+                });
+            }
         }
     </script>
 </body>
